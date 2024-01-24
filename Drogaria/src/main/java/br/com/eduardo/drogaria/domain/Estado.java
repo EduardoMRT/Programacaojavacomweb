@@ -1,16 +1,21 @@
 package br.com.eduardo.drogaria.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
+
 
 @SuppressWarnings("serial")
 @Entity
+@Access(AccessType.FIELD)
 public class Estado extends GenericDomain {
-	//Não funciona o @Column(length = n) no MySQL 8, foi feito manualmente no WorkSpaces
-	//@Column(length = 2)
+	// WorkSpaces
+
+	@Column(length = 2)
 	private String sigla;
-	
-	//@Column(length = 50)
+
+	@Column(length = 50)
 	private String nome;
 
 	public String getSigla() {
