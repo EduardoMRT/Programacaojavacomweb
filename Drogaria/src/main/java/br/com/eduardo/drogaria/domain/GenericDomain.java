@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+@SuppressWarnings("serial")
 @MappedSuperclass
 public class GenericDomain implements Serializable{
 	private Long codigo;
