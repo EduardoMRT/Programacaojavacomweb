@@ -39,6 +39,7 @@
 		<mapping class="br.com.eduardo.drogaria.domain.Fabricante" />
 		<mapping class="br.com.eduardo.drogaria.domain.Pessoa" />
 		<mapping class="br.com.eduardo.drogaria.domain.Produto" />
+		<mapping class="br.com.eduardo.drogaria.domain.Usuario" />
 		
 	</session-factory>
 
