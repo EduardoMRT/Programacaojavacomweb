@@ -12,6 +12,8 @@ public class CidadeDAOTest {
 	@Test
 	@Ignore
 	public void salvar() {
+		@SuppressWarnings("unused")
+		Long codigoEstado = 1L;
 		// Primeiro você pesquisa os pais para depois
 		// preencher os filhos
 		EstadoDAO estadoDAO = new EstadoDAO();
@@ -72,6 +74,33 @@ public class CidadeDAOTest {
 		} else {
 			cidadeDAO.excluir(cidade);
 			System.out.println("Cidade Removida: " + cidade.getCodigo() + " - " + cidade.getNome() + " - "
+					+ cidade.getEstado().getNome());
+		}
+	}
+	
+	@Test
+	@Ignore
+	public void editar() {
+		Long codigoCidade = 3L;
+		Long codigoEstado = 9L;
+		
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = estadoDAO.buscar(codigoEstado);
+		
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		Cidade cidade = cidadeDAO.buscar(codigoCidade);
+		
+		if(cidade == null) {
+			System.out.println("Cidade não encontrada");
+		}else {
+			System.out.println("Cidade a ser editada: " + cidade.getCodigo() + " - " + cidade.getNome() + " - "
+					+ cidade.getEstado().getNome());
+			
+			cidade.setNome("Rio de Janeiro");
+			cidade.setEstado(estado);
+			cidadeDAO.editar(cidade);
+			
+			System.out.println("\nCidade editada: " + cidade.getCodigo() + " - " + cidade.getNome() + " - "
 					+ cidade.getEstado().getNome());
 		}
 	}
