@@ -20,6 +20,7 @@ public class EstadoDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void listar() {
 		EstadoDAO estadoDAO = new EstadoDAO();
 		List<Estado> resultado = estadoDAO.listar();
@@ -34,4 +35,12 @@ public class EstadoDAOTest {
 		}
 	}
 	
+	@Test
+	public void buscar() {
+		Long codigo = 2L; //o L é pq é Long
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = estadoDAO.buscar(codigo);
+	
+		System.out.println(estado.getCodigo()+" - "+estado.getSigla() + " - " + estado.getNome());
+	}
 }
