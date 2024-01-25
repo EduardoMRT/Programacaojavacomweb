@@ -1,5 +1,8 @@
 package br.com.eduardo.drogaria.dao;
 
+import java.util.List;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.eduardo.drogaria.domain.Cidade;
@@ -7,6 +10,7 @@ import br.com.eduardo.drogaria.domain.Estado;
 
 public class CidadeDAOTest {
 	@Test
+	@Ignore
 	public void salvar() {
 		// Primeiro você pesquisa os pais para depois
 		// preencher os filhos
@@ -21,8 +25,36 @@ public class CidadeDAOTest {
 			cidade.setEstado(estado);
 			CidadeDAO cidadeDAO = new CidadeDAO();
 			cidadeDAO.salvar(cidade);
-			System.out.print(cidade.getCodigo() + " - " + cidade.getNome() + " - " + estado.getSigla());
+			System.out.println(cidade.getCodigo() + " - " + cidade.getNome() + " - " + estado.getSigla());
 		}
+	}
 
+	@Test
+	@Ignore
+	public void listar() {
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		List<Cidade> resultado = cidadeDAO.listar();
+
+		for (Cidade cidade : resultado) { // Varre toda a estrutura de dados, 1 a 1
+			System.out.println("\nCódigo da Cidade:" + cidade.getCodigo() + " - " + cidade.getNome()
+					+ "\nCodigo do Estado:" + cidade.getEstado().getCodigo() + " - " + cidade.getEstado().getNome()
+					+ " - " + cidade.getEstado().getSigla());
+		}
+	}
+
+	@Test
+	public void buscar() {
+		Long codigo = 2L;
+
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		Cidade cidade = cidadeDAO.buscar(codigo);
+
+		if (cidade == null) {
+			System.out.println("Nenhuma cidade encontrada");
+		} else {
+			System.out.println("\nCódigo da Cidade:" + cidade.getCodigo() + " - " + cidade.getNome()
+					+ "\nCodigo do Estado:" + cidade.getEstado().getCodigo() + " - " + cidade.getEstado().getNome()
+					+ " - " + cidade.getEstado().getSigla());
+		}
 	}
 }
