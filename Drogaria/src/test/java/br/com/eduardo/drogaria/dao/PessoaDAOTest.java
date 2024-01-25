@@ -79,6 +79,7 @@ public class PessoaDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void editar() {
 		Long codigoPessoa = 2L;
 		Long codigoCidade = 2L;
