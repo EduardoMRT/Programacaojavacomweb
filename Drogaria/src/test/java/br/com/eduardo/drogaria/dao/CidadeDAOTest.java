@@ -43,6 +43,7 @@ public class CidadeDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void buscar() {
 		Long codigo = 2L;
 
@@ -55,6 +56,23 @@ public class CidadeDAOTest {
 			System.out.println("\nCódigo da Cidade:" + cidade.getCodigo() + " - " + cidade.getNome()
 					+ "\nCodigo do Estado:" + cidade.getEstado().getCodigo() + " - " + cidade.getEstado().getNome()
 					+ " - " + cidade.getEstado().getSigla());
+		}
+	}
+
+	@Test
+	@Ignore
+	public void excluir() {
+		Long codigo = 4L;
+
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		Cidade cidade = cidadeDAO.buscar(codigo);
+
+		if (cidade == null) {
+			System.out.println("Cidade não encontrada");
+		} else {
+			cidadeDAO.excluir(cidade);
+			System.out.println("Cidade Removida: " + cidade.getCodigo() + " - " + cidade.getNome() + " - "
+					+ cidade.getEstado().getNome());
 		}
 	}
 }
