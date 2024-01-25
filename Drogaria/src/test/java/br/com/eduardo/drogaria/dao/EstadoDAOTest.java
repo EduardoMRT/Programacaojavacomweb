@@ -36,11 +36,28 @@ public class EstadoDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void buscar() {
 		Long codigo = 2L; //o L é pq é Long
 		EstadoDAO estadoDAO = new EstadoDAO();
 		Estado estado = estadoDAO.buscar(codigo);
 	
 		System.out.println(estado.getCodigo()+" - "+estado.getSigla() + " - " + estado.getNome());
+	}
+	
+	@Test
+	public void excluir() {
+		Long codigo = 2L; //o L é pq é Long
+		//Inicia o estado DAO
+		EstadoDAO estadoDAO = new EstadoDAO();
+		Estado estado = estadoDAO.buscar(codigo);
+		
+		if(estado ==  null) {
+			System.out.println("Nenhum registro encontrado");
+		}else {
+			estadoDAO.excluir(estado);
+			System.out.println("Registro removido:");
+			System.out.println(estado.getCodigo()+ " - "+ estado.getNome());
+		}
 	}
 }
