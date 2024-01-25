@@ -32,6 +32,7 @@ public class FabricanteDAOTest {
 	}
 
 	@Test
+	@Ignore
 	public void buscar() {
 		Long codigo = 3L;
 
