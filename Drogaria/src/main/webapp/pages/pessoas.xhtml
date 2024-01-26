@@ -69,5 +69,56 @@
 			</p:dataTable>
 		</p:panel>
 	</h:form>
+	
+	<p:dialog header="Pessoas - Cadastro" widgetVar="dialogo"
+		draggable="false" resizable="false" modal="true" closable="false">
+		<h:form>
+			<h:panelGrid columns="2">
+			
+				<p:outputLabel value="Nome:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="CPF:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="RG:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="Rua:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="Número:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="Bairro:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="CEP:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="Complemento:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="Telefone:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="Celular:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="E-mail:" />
+				<p:inputText maxlength="50" size="30" />
+							
+				<p:outputLabel value="Cidade:" />
+				<p:selectOneMenu filter="true">
+					<f:selectItem itemValue="" itemLabel="Selecione uma cidade" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
 </h:body>
 </html>
