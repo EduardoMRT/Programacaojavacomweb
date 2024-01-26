@@ -1,6 +1,7 @@
 package br.com.eduardo.drogaria.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -10,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 @Access(AccessType.FIELD)
 
 public class Funcionario extends GenericDomain {
@@ -47,5 +48,6 @@ public class Funcionario extends GenericDomain {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+
 
 }
