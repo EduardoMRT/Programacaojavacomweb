@@ -10,6 +10,8 @@
 	<title>Estados</title>
 </h:head>
 <h:body>
+	<p:growl id='mensagem'/>
+
 	<h:form>
 		<p:panel header="Estados - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
@@ -42,7 +44,7 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" actionListener="#{estadoBean.salvar}"/> <!-- chama o metodo salvar -->
+				<p:commandButton value="Salvar" actionListener="#{estadoBean.salvar}" update=':mensagem'/> <!-- chama o metodo salvar -->
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
