@@ -1,5 +1,7 @@
 package br.com.eduardo.drogaria.bean;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -12,9 +14,10 @@ import br.com.eduardo.drogaria.domain.Estado;
 //view - existe enquanto você esta na tela
 //session - objetos ficam vivos durante todo o tempo de vida da aplicação
 
+@SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class EstadoBean {
+public class EstadoBean implements Serializable{
 	private Estado estado;
 	
 	
