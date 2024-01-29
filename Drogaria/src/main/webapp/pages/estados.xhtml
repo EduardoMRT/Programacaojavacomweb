@@ -33,7 +33,7 @@
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{estadoBean.excluir}"
-						update=":mensagem">
+						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação" message="Deseja excluir o estado?"
 							icon="ui-icon-alert" />
 						<f:attribute name="estadoSelecionado" value="#{estado}" />
