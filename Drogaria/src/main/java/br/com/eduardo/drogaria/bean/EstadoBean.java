@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.omnifaces.util.Messages;
 
+import br.com.eduardo.drogaria.dao.EstadoDAO;
 import br.com.eduardo.drogaria.domain.Estado;
 
 //Tempo de vida - 3 tipos:
@@ -34,7 +35,17 @@ public class EstadoBean implements Serializable{
 		estado = new Estado();
 	}
 	public void salvar() {
-		Messages.addGlobalInfo("Nome: "+estado.getNome() + " Sigla: "+estado.getSigla());
+		try {
+		EstadoDAO estadoDAO = new EstadoDAO();
+		estadoDAO.salvar(estado);
+		
+		novo();
+		
+		Messages.addGlobalInfo("Estado Salvo com Sucesso");
+		}catch(RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o estado");
+			erro.printStackTrace();
+		}
 	}
 }
 
