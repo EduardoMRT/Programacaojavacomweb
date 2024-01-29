@@ -47,4 +47,21 @@ public class FabricanteDAOTest {
 			;
 		}
 	}
+	
+	@Test
+	public void merge() {
+		//Verifica se o ID do Fabricante existe no banco
+		//Se estiver vazio ele sabe que não existe no banco
+		
+		//Fabricante fabricante = new Fabricante();
+		//fabricante.setDescricao("Fabricante A");
+
+		//FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		//fabricanteDAO.merge(fabricante);
+	
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		Fabricante fabricante = fabricanteDAO.buscar(4L);
+		fabricante.setDescricao("Fabricante B");
+		fabricanteDAO.merge(fabricante);
+	}
 }
