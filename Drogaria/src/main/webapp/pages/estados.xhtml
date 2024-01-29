@@ -4,61 +4,72 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Estados</title>
 </h:head>
 <h:body>
-	<p:growl id='mensagem'/>
+	<p:growl id="mensagem" />
 
 	<h:form>
 		<p:panel header="Estados - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value='#{estadoBean.estados}' var='estado' rows='5'> <!-- var estado só existe dentro dessa guia -->
+				paginator="true" value="#{estadoBean.estados}" var="estado" rows="5">
 				<f:facet name="footer">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"  actionListener="#{estadoBean.novo}" update=':formCadastro:painel'/>
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						actionListener="#{estadoBean.novo}" update=":formCadastro:painel" />
 				</f:facet>
 
-				<p:column headerText="Nome" sortBy='#{estado.nome}' filterBy='#{estado.nome}'>
-					<h:outputText value='#{estado.nome}'/>
+				<p:column headerText="Nome" sortBy="#{estado.nome}"
+					filterBy="#{estado.nome}">
+					<h:outputText value="#{estado.nome}" />
 				</p:column>
 
-				<p:column headerText="Sigla" sortBy='#{estado.sigla}' filterBy='#{estado.sigla}'> 
-				<h:outputText value='#{estado.sigla}'/>
+				<p:column headerText="Sigla" sortBy="#{estado.sigla}"
+					filterBy="#{estado.sigla}">
+					<h:outputText value="#{estado.sigla}" />
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash">
-						<p:confirm />
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{estadoBean.excluir}"
+						update=":mensagem">
+						<p:confirm header="Confirmação" message="Deseja excluir o estado?"
+							icon="ui-icon-alert" />
+						<f:attribute name="estadoSelecionado" value="#{estado}" />
 					</p:commandButton>
-					
-					<p:confirmDialog global='true' header='Confirmação' message='Deseja excluir o estado' icon='ui-icon-alert'>
-						<p:commandButton value='Sim' type='button' styleClass='ui-confirmedialog-yes' icon='ui-icon-check' />
-						<p:commandButton value='Não' type='button' styleClass='ui-confirmedialog-no' icon='ui-icon-close' />
-					</p:confirmDialog>
 				</p:column>
 			</p:dataTable>
+
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Estados - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id='formCadastro'>
-			<h:panelGrid id='painel' columns="2">
+		<h:form id="formCadastro">
+			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel value="Nome:" />
-				<p:inputText maxlength="50" size="30" value='#{estadoBean.estado.nome}'/>
+				<p:inputText maxlength="50" size="30"
+					value="#{estadoBean.estado.nome}" />
 
 				<p:outputLabel value="Sigla:" />
-				<p:inputText maxlength="2" size="10" value='#{estadoBean.estado.sigla}'/>
+				<p:inputText maxlength="2" size="10"
+					value="#{estadoBean.estado.sigla}" />
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" actionListener="#{estadoBean.salvar}" update=':mensagem :formCadastro:painel'/> <!-- chama o metodo salvar -->
+				<p:commandButton value="Salvar"
+					actionListener="#{estadoBean.salvar}"
+					update=":mensagem :formCadastro:painel" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
 </h:body>
-
 </html>
