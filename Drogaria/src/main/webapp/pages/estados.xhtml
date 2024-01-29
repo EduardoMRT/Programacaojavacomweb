@@ -29,6 +29,14 @@
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash">
+						<p:confirm />
+					</p:commandButton>
+					
+					<p:confirmDialog global='true' header='Confirmação' message='Deseja excluir o estado' icon='ui-icon-alert'>
+						<p:commandButton value='Sim' type='button' styleClass='ui-confirmedialog-yes' icon='ui-icon-check' />
+						<p:commandButton value='Não' type='button' styleClass='ui-confirmedialog-no' icon='ui-icon-close' />
+					</p:confirmDialog>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
