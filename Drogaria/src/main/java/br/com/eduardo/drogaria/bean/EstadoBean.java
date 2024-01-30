@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
@@ -87,11 +88,7 @@ public class EstadoBean implements Serializable {
 		}
 	}
 
-	public void editar(ActionEvent evento) {
-		try {
-			estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
-		} catch (RuntimeException erro) {
-			
-		}
+	public void editar(ActionEvent evento){
+		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
 	}
 }
