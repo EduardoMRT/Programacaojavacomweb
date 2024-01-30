@@ -71,7 +71,7 @@ public class FabricanteBean implements Serializable {
 	}
 	
 	//others
-	public void excluir(ActionEvent evento) throws ConstraintViolationException { // serve para capturar oq foi mandado
+	public void excluir(ActionEvent evento) { // serve para capturar oq foi mandado
 		try {
 			fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
 
