@@ -68,4 +68,22 @@ public class CidadeBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
+	
+	public void salvar() {
+		try {
+			Messages.addGlobalInfo("Cidade salva com sucesso");
+			CidadeDAO cidadeDAO = new CidadeDAO();
+			EstadoDAO estadoDAO = new EstadoDAO();
+			cidadeDAO.merge(cidade);
+			
+			cidade = new Cidade();
+			
+			cidades = cidadeDAO.listar();
+			estados = estadoDAO.listar();
+			
+		}catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar a cidade");
+			erro.printStackTrace();
+		}
+	}
 }
