@@ -17,7 +17,7 @@ import br.com.eduardo.drogaria.dao.FabricanteDAO;
 import br.com.eduardo.drogaria.domain.Estado;
 import br.com.eduardo.drogaria.domain.Fabricante;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 @ManagedBean
 @ViewScoped
 public class FabricanteBean implements Serializable {
