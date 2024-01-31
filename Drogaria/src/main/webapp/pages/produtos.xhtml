@@ -34,7 +34,9 @@
 				</p:column>
 
 				<p:column headerText="Preço">
-					<h:outputText value="#{produto.preco}" />
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Fabricante">
@@ -92,8 +94,10 @@
 				<p:inputText maxlength="7" size="10"
 					value="#{produtoBean.produto.preco}" required="true"
 					requiredMessage="O campo 'Preço' é obrigatório"
-					converterMessage="Informe um valor válido para o campo 'Preço''">
-					<f:validateDoubleRange minimum="0.01" maximum="9999.99"/>	
+					converterMessage="Informe um valor válido para o campo 'Preço'"
+					validatorMessage="Informe um valor entre R$0,01 e R$9999,99">
+					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
+					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 				</p:inputText>
 
 				<p:outputLabel value="Fabricante:" />
