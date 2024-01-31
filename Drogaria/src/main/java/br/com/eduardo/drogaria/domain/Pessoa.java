@@ -5,6 +5,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -45,9 +46,9 @@ public class Pessoa extends GenericDomain {
 	@Column(nullable = false, length = 100)
 	private String email;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Cidade cidade; //está na UML mas não está no código do Sergio
+	private Cidade cidade; //Corrigido
 	
 	public String getNome() {
 		return nome;
@@ -144,5 +145,5 @@ public class Pessoa extends GenericDomain {
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
-
+	
 }
