@@ -58,7 +58,7 @@
 
 			<p:confirmDialog global="true">
 				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=':formListagem:tabela'/>
 				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
@@ -98,6 +98,7 @@
 						itemLabel="Selecione uma cidade" />
 					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"
 						itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
+						<p:ajax listener="#{pessoaBean.popular}" update=':formCadastro:cidade'/>
 				</p:selectOneMenu>
 
 				<p:outputLabel for="rua" value="Rua:" />

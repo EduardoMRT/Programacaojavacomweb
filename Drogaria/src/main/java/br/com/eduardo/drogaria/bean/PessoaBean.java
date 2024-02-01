@@ -26,6 +26,8 @@ public class PessoaBean implements Serializable {
 	private List<Pessoa> pessoas;
 
 	private Estado estado;
+	
+	private Cidade cidade;
 	private List<Estado> estados;
 	private List<Cidade> cidades;
 
@@ -68,6 +70,13 @@ public class PessoaBean implements Serializable {
 	public void setCidades(List<Cidade> cidades) {
 		this.cidades = cidades;
 	}
+	
+	public Cidade getCidade() {
+		return cidade;
+	}
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
 
 	@PostConstruct
 	public void listar() {
@@ -95,7 +104,24 @@ public class PessoaBean implements Serializable {
 	}
 
 	public void editar(ActionEvent evento) {
-
+			try {
+				pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
+				
+				PessoaDAO pessoaDAO = new PessoaDAO();
+				pessoas = pessoaDAO.listar();
+				
+				CidadeDAO cidadeDAO = new CidadeDAO();
+				cidades = cidadeDAO.listar();
+				
+				EstadoDAO estadoDAO = new EstadoDAO();				
+				estados = estadoDAO.listar("nome");
+				
+				estado = pessoa.getCidade().getEstado();
+				
+			}catch (RuntimeException erro){
+				Messages.addGlobalError("Ocorreu um erro ao tentar editar uma pessoa");
+				erro.printStackTrace();
+			}
 	}
 
 	public void salvar() {
@@ -112,7 +138,17 @@ public class PessoaBean implements Serializable {
 	}
 
 	public void excluir(ActionEvent evento) {
-
+		try {
+			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			pessoaDAO.excluir(pessoa);
+			Messages.addGlobalInfo("Pessoa: "+pessoa.getNome()+" excluída com sucesso!");
+			novo();
+			
+		}catch(RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar excluir a pessoa");
+			erro.printStackTrace();
+		}
 	}
 
 	public void popular() {
@@ -121,6 +157,7 @@ public class PessoaBean implements Serializable {
 			if (estado != null) {
 				CidadeDAO cidadeDAO = new CidadeDAO();
 				cidades = cidadeDAO.buscarPorEstado(estado.getCodigo());
+				
 			} else {
 				cidades = new ArrayList<Cidade>();
 			}

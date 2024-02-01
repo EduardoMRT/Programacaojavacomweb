@@ -100,6 +100,7 @@ public class CidadeBean implements Serializable {
 			Messages.addGlobalInfo("Cidade " + getCidade().getNome() + " excluiída com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao excluir a cidade");
+			erro.printStackTrace();
 		}
 	}
 
