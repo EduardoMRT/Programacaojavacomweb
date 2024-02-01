@@ -120,14 +120,14 @@
 					requiredMessage="O campo 'Bairro' é obrigatório" />
 
 				<p:outputLabel for="cep" value="CEP:" />
-				<p:inputMask mask="99999-999" id='cep'/>
+				<p:inputMask mask="99999-999" id='cep' size='10' value='#{pessoaBean.pessoa.cep}'/>
 
 				<p:outputLabel for="complemento" value="Complemento:" />
 				<p:inputText id="complemento" maxlength="10" size="10"
 					value="#{pessoaBean.pessoa.complemento}" />
 
 				<p:outputLabel for="telefone" value="Telefone:" />
-				<p:inputMask id="telefone" mask='(99)9999-9999'/>
+				<p:inputMask id="telefone" mask='(99)9999-9999' value='#{pessoaBean.pessoa.telefone}'/>
 
 				<p:outputLabel for="celular" value="Celular:" />
 				<p:inputMask mask="(99)99999-9999" id='celular' size='10' value='#{pessoaBean.pessoa.celular}'/>
