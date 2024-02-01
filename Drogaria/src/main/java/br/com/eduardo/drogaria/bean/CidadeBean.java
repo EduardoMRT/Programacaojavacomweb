@@ -16,7 +16,7 @@ import br.com.eduardo.drogaria.domain.Cidade;
 import br.com.eduardo.drogaria.domain.Estado;
 import br.com.eduardo.drogaria.domain.Fabricante;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unused" })
 @ManagedBean
 @ViewScoped
 public class CidadeBean implements Serializable {

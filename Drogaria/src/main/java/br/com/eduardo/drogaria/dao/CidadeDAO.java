@@ -17,6 +17,7 @@ public class CidadeDAO extends GenericDAO<Cidade>{
 			Criteria consulta = sessao.createCriteria(Cidade.class);
 			consulta.add(Restrictions.eq("estado.codigo", estadoCodigo));
 			consulta.addOrder(Order.asc("nome"));
+			@SuppressWarnings("unchecked")
 			List<Cidade> resultado = consulta.list();
 			return resultado;
 		} catch (RuntimeException erro) {
