@@ -75,10 +75,10 @@
 					requiredMessage="O campo 'Nome' é obrigatório" />
 
 				<p:outputLabel for="rg" value="RG:" />
-				<p:inputText id="rg" />
+				<p:inputMask id='rg' mask="99.999.999-9" size="10" value='#{pessoaBean.pessoa.rg}' required='true' requiredMessage='O campo "RG" é obrigatório'/>
 
 				<p:outputLabel for="cpf" value="CPF:" />
-				<p:inputText id="cpf" />
+				<p:inputMask id='cpf' mask="999.999.999-99" size="10" value='#{pessoaBean.pessoa.cpf}' required='true' requiredMessage='O campo "CPF" é obrigatório'/>
 
 				<p:outputLabel for="estado" value="Estado:" />
 				<p:selectOneMenu id="estado" filter="true"
@@ -120,17 +120,17 @@
 					requiredMessage="O campo 'Bairro' é obrigatório" />
 
 				<p:outputLabel for="cep" value="CEP:" />
-				<p:inputText id="cep" />
+				<p:inputMask mask="99999-999" id='cep'/>
 
 				<p:outputLabel for="complemento" value="Complemento:" />
 				<p:inputText id="complemento" maxlength="10" size="10"
 					value="#{pessoaBean.pessoa.complemento}" />
 
 				<p:outputLabel for="telefone" value="Telefone:" />
-				<p:inputText id="telefone" />
+				<p:inputMask id="telefone" mask='(99)9999-9999'/>
 
 				<p:outputLabel for="celular" value="Celular:" />
-				<p:inputText id="celular" />
+				<p:inputMask mask="(99)99999-9999" id='celular' size='10' value='#{pessoaBean.pessoa.celular}'/>
 
 				<p:outputLabel for="email" value="Email:" />
 				<p:inputText id="email" maxlength="100" size="50"
