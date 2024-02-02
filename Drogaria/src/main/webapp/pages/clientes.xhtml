@@ -12,21 +12,28 @@
 	<h:form>
 		<p:panel header="Clientes - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true">
+				paginator="true" value='#{clienteBean.clientes}' var='cliente'
+				rows='5'>
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
 				</f:facet>
 
 				<p:column headerText="Nome">
+					<h:outputText value='#{cliente.pessoa.nome}' />
 				</p:column>
 
 				<p:column headerText="CPF">
+					<h:outputText value='#{cliente.pessoa.cpf}' />
 				</p:column>
-				
+
 				<p:column headerText="Data de Cadastro">
+					<h:outputText value='#{cliente.dataCadastro}'>
+						<f:convertDateTime locale='pt_BR' />
+					</h:outputText>
 				</p:column>
-				
+
 				<p:column headerText="Liberado">
+					<p:selectBooleanCheckbox value='#{cliente.liberado}' disabled='true'/>
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -43,10 +50,10 @@
 				<p:selectOneMenu filter="true">
 					<f:selectItem itemValue="" itemLabel="Selecione uma pessoa" />
 				</p:selectOneMenu>
-				
+
 				<p:outputLabel value="Data de Cadastro:" />
 				<p:calendar />
-				
+
 				<p:outputLabel value="Liberado:" />
 				<p:selectBooleanCheckbox />
 			</h:panelGrid>

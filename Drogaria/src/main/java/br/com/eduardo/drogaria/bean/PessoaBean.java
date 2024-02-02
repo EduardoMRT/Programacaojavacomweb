@@ -118,6 +118,7 @@ public class PessoaBean implements Serializable {
 				
 				estado = pessoa.getCidade().getEstado();
 				
+				
 			}catch (RuntimeException erro){
 				Messages.addGlobalError("Ocorreu um erro ao tentar editar uma pessoa");
 				erro.printStackTrace();
