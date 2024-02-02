@@ -96,7 +96,7 @@ public class PessoaBean implements Serializable {
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar();
 
-			cidades = new ArrayList<Cidade>();
+			cidades = new ArrayList<Cidade>(); //combos dependentes
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");
 			erro.printStackTrace();
