@@ -18,26 +18,25 @@ import br.com.eduardo.drogaria.domain.Pessoa;
 @ManagedBean
 @ViewScoped
 public class ClienteBean implements Serializable {
-	private List<Cliente> clientes;
 	private Cliente cliente;
+	private List<Cliente> clientes;
 	
-	private Pessoa pessoa;
 	private List<Pessoa> pessoas;
-	
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
-	
+
 	public void setClientes(List<Cliente> clientes) {
 		this.clientes = clientes;
-	}
-	
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
 	}
 
 	public List<Pessoa> getPessoas() {
@@ -62,7 +61,7 @@ public class ClienteBean implements Serializable {
 	public void novo(){
 		try {
 			//ClienteDAO clienteDAO = new ClienteDAO();
-			Cliente cliente = new Cliente();
+			cliente = new Cliente();
 			
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
@@ -73,4 +72,21 @@ public class ClienteBean implements Serializable {
 		erro.printStackTrace();
 	}
 }
+	
+	public void salvar() {
+		try {
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clienteDAO.merge(cliente);
+			
+			cliente = new Cliente();
+			clientes = clienteDAO.listar("dataCadastro");
+			
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			pessoas = pessoaDAO.listar("nome");
+			
+			Messages.addGlobalInfo("Novo cliente salvo com sucesso");
+		}catch(RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o cliente");
+		}
+	}
 }
