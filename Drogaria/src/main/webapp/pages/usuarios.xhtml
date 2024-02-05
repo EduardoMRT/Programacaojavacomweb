@@ -10,6 +10,7 @@
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
+
 	<h:form id="formListagem">
 		<p:panel header="Usuários - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
@@ -43,8 +44,28 @@
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{usuarioBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação"
+							message="Deseja excluir o usuário?" icon="ui-icon-alert" />
+						<f:attribute name="usuarioSelecionado" value="#{usuario}" />
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{usuarioBean.editar}"
+						update=":mensagem :formListagem:tabela"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="usuarioSelecionado" value="#{usuario}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</p:panel>
 	</h:form>
 
@@ -73,7 +94,7 @@
 
 				<p:outputLabel for="tipo" value="Tipo:" />
 				<p:selectOneRadio id="tipo" value="#{usuarioBean.usuario.tipo}"
-					required="true" requiredMessage="O campo 'Tipo' ´obrigatório">
+					required="true" requiredMessage="O campo 'Tipo' obrigatório">
 					<f:selectItem itemValue="A" itemLabel="Administrador" />
 					<f:selectItem itemValue="G" itemLabel="Gerente" />
 					<f:selectItem itemValue="B" itemLabel="Balconista" />

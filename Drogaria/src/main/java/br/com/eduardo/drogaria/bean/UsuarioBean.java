@@ -1,11 +1,13 @@
 package br.com.eduardo.drogaria.bean;
 
 import java.io.Serializable;
+import java.util.EventListener;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -86,5 +88,23 @@ public class UsuarioBean implements Serializable {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o usuário");
 			erro.printStackTrace();
 		}
+	}
+	
+	public void excluir(ActionEvent evento) {
+		try {
+			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
+			
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			usuarioDAO.excluir(usuario);
+			
+			Messages.addGlobalInfo("O usuário foi excluído com sucesso");
+		}catch (RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar excluir o usuário");
+			erro.printStackTrace();
+		}
+	}
+	
+	public void editar(ActionEvent evento) {
+		usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
 	}
 }

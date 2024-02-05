@@ -53,20 +53,20 @@
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{clienteBean.excluir}"
 						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação" message="Deseja excluir o cliente?"
-							icon="ui-icon-alert" />
+						<p:confirm header="Confirmação"
+							message="Deseja excluir o cliente?" icon="ui-icon-alert" />
 						<f:attribute name="clienteSelecionado" value="#{cliente}" />
-						</p:commandButton>
-						
-						<p:commandButton icon="ui-icon-pencil"
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{clienteBean.editar}"
 						update=":mensagem :formListagem:tabela"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="clienteSelecionado" value="#{cliente}" />
 					</p:commandButton>
 
-					
- 				</p:column>
+
+				</p:column>
 			</p:dataTable>
 			<p:confirmDialog global="true">
 				<p:commandButton value="Sim" type="button"
@@ -79,19 +79,19 @@
 
 	<p:dialog header="Clientes - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		
+
 		<h:form id="formCadastro">
-		
+
 			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel for="pessoa" value="Pessoa:" />
-				
+
 				<p:selectOneMenu id="pessoa" filter="true"
 					value="#{clienteBean.cliente.pessoa}" required="true"
 					requiredMessage="O campo 'Pessoa' é obrigatório"
 					converter="omnifaces.SelectItemsConverter">
-					
+
 					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione uma pessoa"/>
+						itemLabel="Selecione uma pessoa" />
 					<f:selectItems value="#{clienteBean.pessoas}" var="pessoa"
 						itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.cpf}" />
 				</p:selectOneMenu>
@@ -113,10 +113,10 @@
 					update=":mensagem :formCadastro:painel :formListagem:tabela"
 					actionListener="#{clienteBean.salvar}" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-		
+
 			</h:panelGrid>
 		</h:form>
-		
+
 	</p:dialog>
 </h:body>
 </html>
