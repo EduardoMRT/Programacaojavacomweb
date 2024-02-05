@@ -7,6 +7,7 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Clientes</title>
+	<h:outputScript library="js" name="scripts.js" />
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
@@ -49,22 +50,48 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-				</p:column>
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{clienteBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação" message="Deseja excluir o cliente?"
+							icon="ui-icon-alert" />
+						<f:attribute name="clienteSelecionado" value="#{cliente}" />
+						</p:commandButton>
+						
+						<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{clienteBean.editar}"
+						update=":mensagem :formListagem:tabela"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="clienteSelecionado" value="#{cliente}" />
+					</p:commandButton>
+
+					
+ 				</p:column>
 			</p:dataTable>
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Clientes - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
+		
 		<h:form id="formCadastro">
+		
 			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel for="pessoa" value="Pessoa:" />
+				
 				<p:selectOneMenu id="pessoa" filter="true"
 					value="#{clienteBean.cliente.pessoa}" required="true"
 					requiredMessage="O campo 'Pessoa' é obrigatório"
 					converter="omnifaces.SelectItemsConverter">
+					
 					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione uma pessoa" />
+						itemLabel="Selecione uma pessoa"/>
 					<f:selectItems value="#{clienteBean.pessoas}" var="pessoa"
 						itemValue="#{pessoa}" itemLabel="#{pessoa.nome} - #{pessoa.cpf}" />
 				</p:selectOneMenu>
@@ -73,7 +100,7 @@
 				<p:calendar id="dataCadastro"
 					value="#{clienteBean.cliente.dataCadastro}" required="true"
 					requiredMessage="O campo 'Data de Cadastro' é obrigatório"
-					size="10" />
+					size="10" mindate="10-10-1999" locale="pt_BR" />
 
 				<p:outputLabel for="liberado" value="Liberado:" />
 				<p:selectBooleanCheckbox id="liberado"
@@ -86,8 +113,10 @@
 					update=":mensagem :formCadastro:painel :formListagem:tabela"
 					actionListener="#{clienteBean.salvar}" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+		
 			</h:panelGrid>
 		</h:form>
+		
 	</p:dialog>
 </h:body>
 </html>
