@@ -2,7 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.julio.drogaria</groupId>
+	<groupId>br.com.eduardo.drogaria</groupId>
 	<artifactId>Drogaria</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
@@ -30,6 +30,17 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<!-- Repositórios-->
+	<repositories>
+		<!-- Prime Faces -->
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 
 	<!-- Dependencias -->
 	<dependencies>
@@ -70,6 +81,16 @@
 			<artifactId>primefaces</artifactId>
 			<version>5.2</version>
 		</dependency>
+
+		<!-- PrimeFaces Themes -->
+		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -->
+		<!-- Prime Faces Themes -->
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>all-themes</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
 		<!-- OminiFaces -->
 
 		<!-- https://mvnrepository.com/artifact/org.omnifaces/omnifaces -->

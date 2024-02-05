@@ -61,6 +61,7 @@ public class ClienteBean implements Serializable {
 	@PostConstruct
 	public void listar(){
 		try{
+			novo();
 			ClienteDAO clienteDAO = new ClienteDAO();
 			clientes = clienteDAO.listar();
 		}catch(RuntimeException erro){
@@ -117,6 +118,5 @@ public class ClienteBean implements Serializable {
 	
 	public void editar(ActionEvent evento) {
 			cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
-			
 	}
 }

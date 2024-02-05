@@ -54,7 +54,7 @@
 
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{usuarioBean.editar}"
-						update=":mensagem :formListagem:tabela"
+						update=":mensagem :formListagem:tabela :formCadastro"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="usuarioSelecionado" value="#{usuario}" />
 					</p:commandButton>
@@ -110,7 +110,8 @@
 				<p:commandButton value="Salvar"
 					update=":mensagem :formCadastro:painel :formListagem:tabela"
 					actionListener="#{usuarioBean.salvar}" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" 
+				update=":formCadastro:painel "/>
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>

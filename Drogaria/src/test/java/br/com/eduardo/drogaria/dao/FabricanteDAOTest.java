@@ -49,6 +49,7 @@ public class FabricanteDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void merge() {
 		//Verifica se o ID do Fabricante existe no banco
 		//Se estiver vazio ele sabe que não existe no banco

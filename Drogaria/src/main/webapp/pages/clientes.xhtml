@@ -60,7 +60,7 @@
 
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{clienteBean.editar}"
-						update=":mensagem :formListagem:tabela"
+						update=":mensagem :formListagem:tabela :formCadastro"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="clienteSelecionado" value="#{cliente}" />
 					</p:commandButton>

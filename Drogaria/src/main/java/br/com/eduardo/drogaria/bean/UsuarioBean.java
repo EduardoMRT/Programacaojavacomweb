@@ -52,6 +52,8 @@ public class UsuarioBean implements Serializable {
 	@PostConstruct
 	public void listar(){
 		try{
+			novo();
+			
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			usuarios = usuarioDAO.listar("tipo");
 		}catch(RuntimeException erro){
