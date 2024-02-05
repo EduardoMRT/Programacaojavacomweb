@@ -30,7 +30,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<!-- Repositórios-->
 	<repositories>
 		<!-- Prime Faces -->
@@ -107,6 +107,15 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- Jersey -->
+		<!--
+		https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet -->
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.22.1</version>
 		</dependency>
 
 	</dependencies>
