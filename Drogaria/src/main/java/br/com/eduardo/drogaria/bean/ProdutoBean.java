@@ -80,7 +80,8 @@ public class ProdutoBean implements Serializable {
 	public void editar(ActionEvent evento) {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
+			produto.setCaminho("C:/eclipsejdk/Workspace/Uploads/" + produto.getCodigo() + ".png");
+			
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();
 		} catch (RuntimeException erro) {
@@ -91,6 +92,11 @@ public class ProdutoBean implements Serializable {
 
 	public void salvar() {
 		try {
+			if(produto.getCaminho() == null) {
+				Messages.addGlobalError("O campo foto é obrigatório!");
+				return;
+			}
+			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			Produto produtoRetorno = produtoDAO.merge(produto);
 			
@@ -118,11 +124,14 @@ public class ProdutoBean implements Serializable {
 
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtoDAO.excluir(produto);
-
+			
+			java.nio.file.Path arquivo = Paths.get("C:/eclipsejdk/Workspace/Uploads/" + produto.getCodigo() + ".png");
+			Files.deleteIfExists(arquivo);
+			
 			produtos = produtoDAO.listar();
 
 			Messages.addGlobalInfo("Produto removido com sucesso");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o produto");
 			erro.printStackTrace();
 		}
