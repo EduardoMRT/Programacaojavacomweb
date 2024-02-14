@@ -3,6 +3,7 @@ package br.com.eduardo.drogaria.bean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
@@ -91,8 +92,12 @@ public class ProdutoBean implements Serializable {
 	public void salvar() {
 		try {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtoDAO.merge(produto);
-
+			Produto produtoRetorno = produtoDAO.merge(produto);
+			
+			java.nio.file.Path origem =  Paths.get(produto.getCaminho());
+			java.nio.file.Path destino =  Paths.get("C:/eclipsejdk/Workspace/Uploads/" + produtoRetorno.getCodigo() + ".png");
+			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
+			
 			produto = new Produto();
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
@@ -101,7 +106,7 @@ public class ProdutoBean implements Serializable {
 			produtos = produtoDAO.listar();
 
 			Messages.addGlobalInfo("Produto salvo com sucesso");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o produto");
 			erro.printStackTrace();
 		}
@@ -132,6 +137,8 @@ public class ProdutoBean implements Serializable {
 			java.nio.file.Path arquivoTemp = Files.createTempFile(null, null);
 			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
 			produto.setCaminho(arquivoTemp.toString());
+			
+			Messages.addGlobalInfo("Upload realizado com sucesso!");
 		} catch (IOException erro) {
 			Messages.addGlobalInfo("Ocorreu um erro ao tentar realizar o upload do arquivo");
 			erro.printStackTrace();
