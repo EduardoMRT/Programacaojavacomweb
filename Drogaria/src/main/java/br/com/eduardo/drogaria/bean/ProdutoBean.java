@@ -1,15 +1,20 @@
 package br.com.eduardo.drogaria.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.persistence.criteria.Path;
 
 import org.omnifaces.util.Messages;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.com.eduardo.drogaria.dao.FabricanteDAO;
 import br.com.eduardo.drogaria.dao.ProdutoDAO;
@@ -20,10 +25,10 @@ import br.com.eduardo.drogaria.domain.Produto;
 @ManagedBean
 @ViewScoped
 public class ProdutoBean implements Serializable {
-	private Produto  produto;
+	private Produto produto;
 	private List<Produto> produtos;
 	private List<Fabricante> fabricantes;
-	
+
 	public Produto getProduto() {
 		return produto;
 	}
@@ -58,7 +63,7 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void novo() {
 		try {
 			produto = new Produto();
@@ -70,8 +75,8 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
-	public void editar(ActionEvent evento){
+
+	public void editar(ActionEvent evento) {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
@@ -80,9 +85,9 @@ public class ProdutoBean implements Serializable {
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar selecionar um produto");
 			erro.printStackTrace();
-		}	
+		}
 	}
-	
+
 	public void salvar() {
 		try {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -117,10 +122,19 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void upload(FileUploadEvent evento) {
-		String nome = evento.getFile().getFileName();
-		System.out.println(nome);
-		System.out.println(evento.getFile().getContents());
+		try {
+			UploadedFile arquivoUpload = evento.getFile();
+			// pam 1 - nome do arquivo temp
+			// pam 2 - extensao - .tmp
+			// createTempFile - retorna tipo Path - guarda a referencia do arquivo
+			java.nio.file.Path arquivoTemp = Files.createTempFile(null, null);
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			produto.setCaminho(arquivoTemp.toString());
+		} catch (IOException erro) {
+			Messages.addGlobalInfo("Ocorreu um erro ao tentar realizar o upload do arquivo");
+			erro.printStackTrace();
+		}
 	}
 }
