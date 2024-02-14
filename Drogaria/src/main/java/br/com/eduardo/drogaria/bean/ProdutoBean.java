@@ -119,6 +119,8 @@ public class ProdutoBean implements Serializable {
 	}
 	
 	public void upload(FileUploadEvent evento) {
-		
+		String nome = evento.getFile().getFileName();
+		System.out.println(nome);
+		System.out.println(evento.getFile().getContents());
 	}
 }
