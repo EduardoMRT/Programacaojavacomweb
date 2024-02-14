@@ -1,6 +1,7 @@
 package br.com.eduardo.drogaria.bean;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,16 +9,20 @@ import javax.faces.bean.ManagedBean;
 
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.omnifaces.util.Messages;
 
+import com.google.gson.Gson;
 
 import br.com.eduardo.drogaria.dao.FabricanteDAO;
 import br.com.eduardo.drogaria.domain.Estado;
 import br.com.eduardo.drogaria.domain.Fabricante;
 
-@SuppressWarnings({ "serial", "unused" })
+@SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class FabricanteBean implements Serializable {
@@ -43,8 +48,21 @@ public class FabricanteBean implements Serializable {
 	@PostConstruct // Sem ele não funciona
 	public void listar() {
 		try {
-			FabricanteDAO fabricanteDAO = new FabricanteDAO();
-			fabricantes = fabricanteDAO.listar();
+			//FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			//fabricantes = fabricanteDAO.listar();
+			
+			//CRIA UM NOVO CLIENTE
+			Client cliente = ClientBuilder.newClient();
+			//GUARDA O CAMINHO
+			WebTarget caminho = cliente.target("http://127.0.0.1:8080/Drogaria/rest/fabricante");
+			//DISPARA UMA REQUISIÇÃO
+			String json = caminho.request().get(String.class);
+			System.out.println(json);
+			
+			Gson gson = new Gson();
+			Fabricante[] vetor = gson.fromJson(json, Fabricante[].class);
+		
+			fabricantes = Arrays.asList(vetor);
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os fabricantes");
 			erro.printStackTrace();
