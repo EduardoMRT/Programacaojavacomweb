@@ -85,16 +85,16 @@ public class FabricanteBean implements Serializable {
 			Client cliente = ClientBuilder.newClient();
 			WebTarget caminho = cliente.target("http://127.0.0.1:8080/Drogaria/rest/fabricante");
 			
+			//salvar
 			Gson gson = new Gson();
 			String json = gson.toJson(fabricante);
 			caminho.request().post(Entity.json(json));
 			
 			fabricante = new Fabricante();
-			json = caminho.request().get(String.class);
-			System.out.println(json);
 			
+			//listar
+			json = caminho.request().get(String.class);
 			Fabricante[] vetor = gson.fromJson(json, Fabricante[].class);
-		
 			fabricantes = Arrays.asList(vetor);
 			
 			
@@ -112,9 +112,7 @@ public class FabricanteBean implements Serializable {
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricanteDAO.excluir(fabricante);
-
 			fabricantes = fabricanteDAO.listar();
-
 			Messages.addGlobalInfo("Fabricante Removido com Sucesso: " +fabricante.getDescricao());
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o fabricante");
