@@ -144,7 +144,7 @@ public class VendaBean implements Serializable {
 	public void finalizar() {
 		try {
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-			funcionarios = funcionarioDAO.listar();
+			funcionarios = funcionarioDAO.listar("pessoa.nome");
 		}catch(RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
 			erro.printStackTrace();
