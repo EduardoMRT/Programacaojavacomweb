@@ -1,6 +1,7 @@
 package br.com.eduardo.drogaria.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +55,26 @@ public class VendaBean implements Serializable {
 	public void adicionar(ActionEvent evento) {
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
-		ItemVenda itemVenda = new ItemVenda();
-		itemVenda.setPrecoParcial(produto.getPreco());
-		itemVenda.setProduto(produto);
-		itemVenda.setQuantidade(new Short("1"));
+		int achou = -1;
+		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
+			if (itensVenda.get(posicao).getProduto().equals(produto)) { // pega o produto da linha corrente
+				achou = posicao;
+			}
+		}
 
-		itensVenda.add(itemVenda);
+		if (achou < 0) {
+			ItemVenda itemVenda = new ItemVenda();
+			itemVenda.setPrecoParcial(produto.getPreco());
+			itemVenda.setProduto(produto);
+			itemVenda.setQuantidade(new Short("1"));
+			itensVenda.add(itemVenda);
+		}else {
+			ItemVenda itemVenda = itensVenda.get(achou);
+			itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() + 1 + ""));
+			//Quando se soma um tipo Short, o JAVA o transforma em int, precisando assim que
+			//o mesmo seja convertido novamente em um Short
+			itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+		}
+		
 	}
 }
