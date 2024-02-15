@@ -15,14 +15,25 @@ import org.omnifaces.util.Messages;
 import br.com.eduardo.drogaria.dao.ProdutoDAO;
 import br.com.eduardo.drogaria.domain.ItemVenda;
 import br.com.eduardo.drogaria.domain.Produto;
+import br.com.eduardo.drogaria.domain.Venda;
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class VendaBean implements Serializable {
+	private Venda venda;
+	
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
 
+	public Venda getVenda() {
+		return venda;
+	}
+	
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+	
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -40,8 +51,11 @@ public class VendaBean implements Serializable {
 	}
 
 	@PostConstruct
-	public void listar() {
+	public void novo() {
 		try {
+			venda = new Venda();
+			venda.setPrecoTotal(new BigDecimal("0.00"));
+			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar("descricao");
 
@@ -76,6 +90,8 @@ public class VendaBean implements Serializable {
 			// o mesmo seja convertido novamente em um Short
 			itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
 		}
+		
+		calcular();
 	}
 
 	public void remover(ActionEvent evento) {
@@ -90,6 +106,17 @@ public class VendaBean implements Serializable {
 		
 		if(achou > -1) {
 			itensVenda.remove(achou);
+		}
+		
+		calcular();
+	}
+	
+	public void calcular() {
+		venda.setPrecoTotal(new BigDecimal("0.00"));
+		
+		for(int posicao = 0; posicao < itensVenda.size(); posicao++) {
+			ItemVenda itemVenda = itensVenda.get(posicao);
+			venda.setPrecoTotal(venda.getPrecoTotal().add(itemVenda.getPrecoParcial()));
 		}
 	}
 }
