@@ -12,7 +12,10 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.com.eduardo.drogaria.dao.FuncionarioDAO;
 import br.com.eduardo.drogaria.dao.ProdutoDAO;
+import br.com.eduardo.drogaria.domain.Cliente;
+import br.com.eduardo.drogaria.domain.Funcionario;
 import br.com.eduardo.drogaria.domain.ItemVenda;
 import br.com.eduardo.drogaria.domain.Produto;
 import br.com.eduardo.drogaria.domain.Venda;
@@ -25,7 +28,9 @@ public class VendaBean implements Serializable {
 	
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
-
+	private List<Cliente> clientes;
+	private List<Funcionario> funcionarios;
+	
 	public Venda getVenda() {
 		return venda;
 	}
@@ -48,6 +53,22 @@ public class VendaBean implements Serializable {
 
 	public void setItensVenda(List<ItemVenda> itensVenda) {
 		this.itensVenda = itensVenda;
+	}
+	
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
 	}
 
 	@PostConstruct
@@ -117,6 +138,16 @@ public class VendaBean implements Serializable {
 		for(int posicao = 0; posicao < itensVenda.size(); posicao++) {
 			ItemVenda itemVenda = itensVenda.get(posicao);
 			venda.setPrecoTotal(venda.getPrecoTotal().add(itemVenda.getPrecoParcial()));
+		}
+	}
+	
+	public void finalizar() {
+		try {
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionarios = funcionarioDAO.listar();
+		}catch(RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
+			erro.printStackTrace();
 		}
 	}
 }

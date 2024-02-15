@@ -93,5 +93,28 @@
 			</h:panelGrid>
 		</p:panel>
 	</h:form>
+
+	<p:dialog header="Finalizar Venda" widgetVar="dialogo"
+		draggable="false" resizable="false" modal="true" closable="false">
+		<h:form>
+			<h:panelGrid columns="2" />
+			<p:outputLabel value="Funcionário: " />
+			<p:selectOneMenu value="#{vendaBean.venda.funcionario}"
+				converter="omnifaces.SelectItensConverter" filter="true">
+				<f:selectItem noSelectionOption="true"
+					itemLabel="Selecione um funcionário" />
+				<f:selectItems value="#{vendaBean.funcionarios}" var="funcionario"
+					itemValue="#{funcionario}" itemLabel="#{funcionario.pessoa.nome}">
+
+				</f:selectItems>
+			</p:selectOneMenu>
+
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
 </h:body>
 </html>
