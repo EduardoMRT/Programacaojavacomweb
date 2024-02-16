@@ -11,7 +11,7 @@ import br.com.eduardo.drogaria.util.HibernateUtil;
 
 public class FuncionarioDAO extends GenericDAO<Funcionario> {
 	@SuppressWarnings("unchecked")
-	public List<Funcionario> listarOrdenado(String campoOrdenacao) {
+	public List<Funcionario> listarOrdenado() {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Funcionario.class);
