@@ -58,4 +58,9 @@ public class ItemVenda extends GenericDomain {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
+	public void setVenda(Venda venda) {
+		// TODO Auto-generated method stub
+		
+	}
 }
