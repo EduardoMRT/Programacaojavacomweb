@@ -12,6 +12,7 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.com.eduardo.drogaria.dao.ClienteDAO;
 import br.com.eduardo.drogaria.dao.FuncionarioDAO;
 import br.com.eduardo.drogaria.dao.ProdutoDAO;
 import br.com.eduardo.drogaria.domain.Cliente;
@@ -144,7 +145,11 @@ public class VendaBean implements Serializable {
 	public void finalizar() {
 		try {
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-			funcionarios = funcionarioDAO.listar("pessoa.nome");
+			funcionarios = funcionarioDAO.listarOrdenado("pessoa.nome");
+			
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clientes = clienteDAO.listarOrdenado("pessoa.nome");
+			
 		}catch(RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
 			erro.printStackTrace();

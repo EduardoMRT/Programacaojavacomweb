@@ -101,16 +101,26 @@
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formularioFinalizar">
 			<h:panelGrid id="painelFinalizar" columns="2">
-			<p:outputLabel value="Funcionário: " />
-			<p:selectOneMenu value="#{vendaBean.venda.funcionario}"
-				converter="omnifaces.SelectItensConverter" filter="true">
-				<f:selectItem noSelectionOption="true"
-					itemLabel="Selecione um funcionário" />
-				<f:selectItems value="#{vendaBean.funcionarios}" var="funcionario"
-					itemValue="#{funcionario}" itemLabel="#{funcionario.pessoa.nome}" />
-			</p:selectOneMenu>
+				<p:outputLabel value="Funcionário: " />
+				<p:selectOneMenu value="#{vendaBean.venda.funcionario}"
+					converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um funcionário" />
+					<f:selectItems value="#{vendaBean.funcionarios}" var="funcionario"
+						itemValue="#{funcionario}" itemLabel="#{funcionario.pessoa.nome}" />
+				</p:selectOneMenu>
+			
+			
+				<p:outputLabel value="Cliente: " />
+				<p:selectOneMenu value="#{vendaBean.venda.cliente}"
+					converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="contains">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um cliente" />
+					<f:selectItems value="#{vendaBean.clientes}" var="cliente"
+						itemValue="#{cliente}" itemLabel="#{cliente.pessoa.nome} - #{cliente.pessoa.cpf}" />
+				</p:selectOneMenu>
+				
 			</h:panelGrid>
-
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
