@@ -2,6 +2,8 @@ package br.com.eduardo.drogaria.domain;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -9,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 @SuppressWarnings("serial")
 @Entity
+@Access(AccessType.FIELD)
 public class ItemVenda extends GenericDomain {
 	@Column(nullable = false)
 	private Short quantidade;
@@ -22,7 +25,7 @@ public class ItemVenda extends GenericDomain {
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Venda venda;
+	private Funcionario funcionario;
 
 	public Short getQuantidade() {
 		return quantidade;
@@ -48,11 +51,16 @@ public class ItemVenda extends GenericDomain {
 		this.produto = produto;
 	}
 
-	public Venda getVenda() {
-		return venda;
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
-	
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
 	public void setVenda(Venda venda) {
-		this.venda = venda;
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -28,20 +28,20 @@ import br.com.eduardo.drogaria.domain.Venda;
 @ViewScoped
 public class VendaBean implements Serializable {
 	private Venda venda;
-
+	
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
-
+	
 	public Venda getVenda() {
 		return venda;
 	}
-
+	
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
-
+	
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -57,7 +57,7 @@ public class VendaBean implements Serializable {
 	public void setItensVenda(List<ItemVenda> itensVenda) {
 		this.itensVenda = itensVenda;
 	}
-
+	
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
@@ -79,8 +79,7 @@ public class VendaBean implements Serializable {
 		try {
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
-			venda.setHorario(new Date());
-
+			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar("descricao");
 
@@ -96,7 +95,7 @@ public class VendaBean implements Serializable {
 
 		int achou = -1;
 		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
-			if (itensVenda.get(posicao).getProduto().equals(produto)) {
+			if (itensVenda.get(posicao).getProduto().equals(produto)) { // pega o produto da linha corrente
 				achou = posicao;
 			}
 		}
@@ -106,14 +105,16 @@ public class VendaBean implements Serializable {
 			itemVenda.setPrecoParcial(produto.getPreco());
 			itemVenda.setProduto(produto);
 			itemVenda.setQuantidade(new Short("1"));
-
 			itensVenda.add(itemVenda);
 		} else {
 			ItemVenda itemVenda = itensVenda.get(achou);
 			itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() + 1 + ""));
+			// Quando se soma um tipo Short, o JAVA o transforma em int, precisando assim
+			// que
+			// o mesmo seja convertido novamente em um Short
 			itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
 		}
-
+		
 		calcular();
 	}
 
@@ -126,52 +127,50 @@ public class VendaBean implements Serializable {
 				achou = posicao;
 			}
 		}
-
-		if (achou > -1) {
+		
+		if(achou > -1) {
 			itensVenda.remove(achou);
 		}
-
+		
 		calcular();
 	}
-
+	
 	public void calcular() {
 		venda.setPrecoTotal(new BigDecimal("0.00"));
-
-		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
+		
+		for(int posicao = 0; posicao < itensVenda.size(); posicao++) {
 			ItemVenda itemVenda = itensVenda.get(posicao);
 			venda.setPrecoTotal(venda.getPrecoTotal().add(itemVenda.getPrecoParcial()));
 		}
 	}
-
+	
 	public void finalizar() {
 		try {
 			venda.setHorario(new Date());
-
+			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-			funcionarios = funcionarioDAO.listarOrdenado();
-
+			funcionarios = funcionarioDAO.listarOrdenado("pessoa.nome");
+			
 			ClienteDAO clienteDAO = new ClienteDAO();
-			clientes = clienteDAO.listarOrdenado();
-		} catch (RuntimeException erro) {
+			clientes = clienteDAO.listarOrdenado("pessoa.nome");
+			
+		}catch(RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
 			erro.printStackTrace();
 		}
 	}
-
+	
 	public void salvar() {
 		try {
-			if(venda.getPrecoTotal().signum() == 0){
-				Messages.addGlobalError("Informe pelo menos um item para a venda");
+			if(venda.getPrecoTotal().signum() == 0) {
+				Messages.addGlobalError("Informe pelo menos um item para venda");
 				return;
 			}
-			
 			VendaDAO vendaDAO = new VendaDAO();
 			vendaDAO.salvar(venda, itensVenda);
-			
-			Messages.addGlobalInfo("Venda realizada com sucesso");
-		} catch (RuntimeException erro) {
+			Messages.addGlobalInfo("Venda realizada com sucesso!");
+		}catch(RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a venda");
-			erro.printStackTrace();
 		}
 	}
 }

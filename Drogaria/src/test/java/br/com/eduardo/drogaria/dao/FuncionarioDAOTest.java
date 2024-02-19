@@ -17,7 +17,7 @@ public class FuncionarioDAOTest {
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		Pessoa pessoa = pessoaDAO.buscar(2L);
 		Funcionario funcionario = new Funcionario();
-		funcionario.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse("16/02/2024"));
+		funcionario.setDataAdmissao(new SimpleDateFormat("dd/MM/yyyy").parse("26/01/2024"));
 		funcionario.setCarteiraTrabalho("CARTEIRATRAB");
 		funcionario.setPessoa(pessoa);
 		
