@@ -24,7 +24,6 @@ public class Venda extends GenericDomain {
 	private BigDecimal precoTotal;
 
 	@ManyToOne
-	@JoinColumn(nullable = true)
 	private Cliente cliente;
 
 	@ManyToOne
@@ -62,4 +61,5 @@ public class Venda extends GenericDomain {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
 }
