@@ -8,37 +8,42 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SiGDro</title>
 	<!-- Sistema de Gerenciameto de Drogaria -->
-	<h:outputStylesheet library="css" name="modelo.css"/>
+	<h:outputStylesheet library="css" name="modelo.css" />
 </h:head>
 <h:body>
-<h:form>
-<div id="geral">
-		<div id="logo">
-			<p:graphicImage styleClass="imagemCentralizada" library="imgs" name="MultiFarma.jpg" height="250px" width="40%"/>
+	<h:form>
+		<div id="geral">
+			<div id="logo">
+				<p:graphicImage styleClass="imagemCentralizada" library="imgs"
+					name="MultiFarma.jpg" height="250px" width="40%" />
+			</div>
+
+			<div id="cabecalho">
+				<p:menubar>
+					<p:submenu label="Arquivo">
+						<p:menuitem value="Sair" />
+					</p:submenu>
+					<p:submenu label="Cadastro">
+					<p:menuitem value="Cidade" />
+					<p:menuitem value="Estado" />
+						<p:menui<p:menuitem value="Cidade" />
+						<p:menuitem value="Fabricante" />
+						<p:menuitem value="Pessoa" />
+						<p:menuitem value="Cliente" />
+						<p:menuitem value="Funcionário" />
+					</p:submenu>
+					<p:submenu label="Movimentações">
+						<p:menuitem value="Venda" />
+					</p:submenu>
+					<p:submenu label="Ajuda">
+						<p:menuitem value="Sobre" />
+					</p:submenu>
+				</p:menubar>
+			</div>
+
+			<div id="conteudo"></div>
 		</div>
-		
-		<div id="cabecalho">
-			<p:menubar>
-				<p:submenu label="Arquivo">
-				
-				</p:submenu>
-				<p:submenu label="Cadastro">
-				
-				</p:submenu>
-				<p:submenu label="Movimentações">
-				
-				</p:submenu>
-				<p:submenu label="Ajuda">
-				
-				</p:submenu>
-			</p:menubar>
-		</div>
-		
-		<div id="conteudo">
-		
-		</div>
-	</div>
-</h:form>
-	
+	</h:form>
+
 </h:body>
 </html>
