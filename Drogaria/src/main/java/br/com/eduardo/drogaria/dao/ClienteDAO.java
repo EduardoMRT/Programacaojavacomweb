@@ -15,7 +15,7 @@ public class ClienteDAO extends GenericDAO<Cliente>{
 	public List<Cliente> listarOrdenado(String campoOrdenacao) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
-			Criteria consulta = sessao.createCriteria(Funcionario.class);
+			Criteria consulta = sessao.createCriteria(Cliente.class);
 			//nome do atributo dentro da classe, nome que você inventou 
 			consulta.createAlias("pessoa","p");
 			consulta.addOrder(Order.asc("p.nome"));
