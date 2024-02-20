@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produtos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f9431d04-7169-4079-aac2-1c5b9f898b6e">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[ZHJvZ2FyaWEucHJvZHV0byBBUyAsMjMsMTcsMjA5NmJhODYtNmUwNi00MTZmLWJkZjQtODE4YjI1
-NjEyN2VlO2Ryb2dhcmlhLmZhYnJpY2FudGUgQVMgLDIyNCw3Nyw4YTYxYjA4NC0xNDRkLTRlNDMt
-ODUwOS05ZDZmZTc5NmQ5Yzg7]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Drogaria"/>
+	<parameter name="PRODUTO_DESCRICAO" class="java.lang.String"/>
+	<parameter name="FABRICANTE_DESCRICAO" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT drogaria.produto.descricao,
+		<![CDATA[SELECT drogaria.produto.descricao AS pdescricao,
 	drogaria.produto.preco,
 	drogaria.produto.quantidade,
-	drogaria.fabricante.descricao
+	drogaria.fabricante.descricao AS fdescricao
 FROM drogaria.produto
 	INNER JOIN drogaria.fabricante ON 
 	 drogaria.produto.fabricante_codigo = drogaria.fabricante.codigo 
+WHERE 
+	drogaria.produto.descricao LIKE $P{PRODUTO_DESCRICAO} OR
+	drogaria.fabricante.descricao LIKE $P{FABRICANTE_DESCRICAO}
 ORDER BY drogaria.produto.descricao ASC, drogaria.fabricante.descricao ASC]]>
 	</queryString>
-	<field name="descricao" class="java.lang.String">
+	<field name="pdescricao" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
-		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="pdescricao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
 	</field>
 	<field name="preco" class="java.math.BigDecimal">
@@ -32,9 +33,9 @@ ORDER BY drogaria.produto.descricao ASC, drogaria.fabricante.descricao ASC]]>
 		<property name="com.jaspersoft.studio.field.label" value="quantidade"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
 	</field>
-	<field name="COLUMN_4" class="java.lang.String">
+	<field name="fdescricao" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
-		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="fdescricao"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="fabricante"/>
 	</field>
 	<title>
@@ -68,7 +69,7 @@ ORDER BY drogaria.produto.descricao ASC, drogaria.fabricante.descricao ASC]]>
 				<text><![CDATA[Produto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="160" y="0" width="100" height="30" uuid="87ed8470-3395-4676-9d80-500c5c5f052d">
+				<reportElement x="150" y="0" width="120" height="30" uuid="87ed8470-3395-4676-9d80-500c5c5f052d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="86c9f0d7-4663-463d-9450-2d0de7d458ee"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle" markup="html">
@@ -97,18 +98,9 @@ ORDER BY drogaria.produto.descricao ASC, drogaria.fabricante.descricao ASC]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="140" height="30" uuid="4b58ad7c-a27f-4530-a894-d8e2fd03dde4">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a4091fb-8037-4521-baec-3f9538df5221"/>
-				</reportElement>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
-			</textField>
+		<band height="46" splitType="Stretch">
 			<textField pattern="0.00">
-				<reportElement x="160" y="0" width="100" height="30" uuid="3791bbf5-8e6f-4fd0-a44d-9353aa8e2c74">
+				<reportElement x="170" y="0" width="100" height="30" uuid="3791bbf5-8e6f-4fd0-a44d-9353aa8e2c74">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="86c9f0d7-4663-463d-9450-2d0de7d458ee"/>
 				</reportElement>
 				<textElement>
@@ -125,19 +117,35 @@ ORDER BY drogaria.produto.descricao ASC, drogaria.fabricante.descricao ASC]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="150" y="0" width="20" height="30" uuid="de31a0c8-ae19-43dc-84c4-5c2dd1102c54"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[R$]]></text>
+			</staticText>
 			<textField>
-				<reportElement x="400" y="0" width="150" height="30" uuid="9de41ad0-62ad-4fe8-b42c-316f53674c5a">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8c158b6-5327-41ec-aa52-cbd04a9d0a77"/>
+				<reportElement x="0" y="0" width="140" height="30" uuid="8f837252-11fc-4d81-a0bd-7e9868fda8b2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac56ecb0-dc88-4f08-9f0a-3b67a93a2f5e"/>
 				</reportElement>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{pdescricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="150" height="30" uuid="d2607f4f-0255-44dd-a20a-ed287782d123">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2dfaa222-9c6e-4c8f-af79-8fd844f05cc2"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fdescricao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="64" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<staticText>
 				<reportElement x="80" y="17" width="399" height="30" uuid="b070ea04-bd4d-44df-ad8e-87987661f6f7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
