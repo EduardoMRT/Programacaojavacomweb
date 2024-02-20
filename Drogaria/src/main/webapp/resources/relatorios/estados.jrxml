@@ -21,28 +21,68 @@ FROM drogaria.estado]]>
 		<property name="com.jaspersoft.studio.field.label" value="sigla"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="estado"/>
 	</field>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="110" splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="90" y="0" width="380" height="110" uuid="c609e437-e98f-4b0f-bd51-dbf4d50ce06d"/>
+				<imageExpression><![CDATA["C:\\Users\\eteixeira\\Documents\\GitHub\\Programacaojavacomweb\\Drogaria\\src\\main\\webapp\\resources\\imgs\\MultiFarma.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="144" y="10" width="273" height="30" uuid="29108de5-2e0f-415f-9c5e-32b21fe48869"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Modern No. 20" size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE ESTADOS]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="150" y="11" width="100" height="30" uuid="dbb6f288-0727-4176-82e6-e480d7bdd9c0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bb3743a7-7cce-41ad-a3b8-ed2a655fd4ec"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="11" width="100" height="30" uuid="1c9dbb35-5c68-4aba-ab6b-4eb57c8261f0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4be16b05-728d-40ca-aabd-a5639fd25f97"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sigla]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="69" splitType="Stretch">
+			<textField>
+				<reportElement x="150" y="10" width="100" height="30" uuid="1071a374-5242-463e-9413-cd646ad0cc1c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bb3743a7-7cce-41ad-a3b8-ed2a655fd4ec"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="10" width="100" height="30" uuid="2d768a3c-bad8-4fe4-b59a-342b0f06cebd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4be16b05-728d-40ca-aabd-a5639fd25f97"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sigla}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="50"/>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>
