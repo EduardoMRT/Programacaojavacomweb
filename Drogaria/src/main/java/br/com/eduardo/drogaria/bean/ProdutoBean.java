@@ -163,8 +163,8 @@ public class ProdutoBean implements Serializable {
 	
 	public void imprimir() {
 		try {
-			String caminho = Faces.getRealPath("/relatorios/produtos.jasper");
-
+			String caminho = Faces.getRealPath("/resources/relatorios/produtos.jasper");
+//C:\Eclipse\WorkSpace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Drogaria\resources\relatorios
 			Map<String, Object> parametros = new HashMap<>();
 
 			Connection conexao = HibernateUtil.getConexao();
