@@ -116,5 +116,12 @@
 			<artifactId>gson</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<!-- Jasper Reports -->
+		<!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.21.2</version>
+		</dependency>
 	</dependencies>
 </project>
