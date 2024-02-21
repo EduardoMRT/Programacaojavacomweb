@@ -28,6 +28,8 @@ import br.com.eduardo.drogaria.domain.Produto;
 import br.com.eduardo.drogaria.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -169,7 +171,8 @@ public class ProdutoBean implements Serializable {
 
 			Connection conexao = HibernateUtil.getConexao();
 
-			JasperFillManager.fillReport(caminho, parametros, conexao);
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
+			JasperPrintManager.printReport(relatorio, true);
 		} catch (JRException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
 			erro.printStackTrace();
