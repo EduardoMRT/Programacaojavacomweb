@@ -15,7 +15,7 @@
 
 	<h:form id="formulario">
 		<p:panel header="Histórico">
-		
+
 			<h:panelGrid columns="3">
 				<p:outputLabel for="codigo" value="Código:" />
 				<p:inputText id="codigo" size="20" maxlength="13" required="true"
@@ -23,22 +23,23 @@
 					converterMessage="O código do produto é composto somente de números"
 					validatorMessage="Informe um valor entre 1 e 9999999999999 para o campo código"
 					value="#{historicoBean.produto.codigo}">
-						<f:validateLongRange minimum="1" maximum="9999999999999"/>
-					</p:inputText>
+					<f:validateLongRange minimum="1" maximum="9999999999999" />
+				</p:inputText>
 				<p:commandButton icon="ui-icon-search"
 					update=":mensagem :formulario:painelDados"
-					actionListener="#{historicoBean.buscar}" />
+					actionListener="#{historicoBean.buscar}"
+					process="@this :formulario:codigo" />
 			</h:panelGrid>
-			
+
 			<h:panelGroup layout="block" id="painelDados">
-				<h:panelGrid  columns="2"
+				<h:panelGrid columns="2"
 					rendered="#{historicoBean.exibePainelDados}">
 					<p:outputLabel value="Descrição:" />
 					<h:outputText value="#{historicoBean.produto.descricao}" />
 
 					<p:outputLabel value="Preço:" />
 					<h:outputText value="#{historicoBean.produto.preco}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 
 					<p:outputLabel value="Quantidade:" />
@@ -46,9 +47,22 @@
 
 					<p:outputLabel value="Fabricante:" />
 					<h:outputText value="#{historicoBean.produto.fabricante.descricao}" />
+
+					<p:outputLabel for="observacoes" value="Observações:" />
+					<p:inputTextarea id="observacoes" required="true"
+						requiredMessage="O campo 'Observações' é obrigatório" rows="5"
+						cols="50" autoResize="false"
+						value="#{historicoBean.historico.observacoes}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="1">
+					<p:commandButton value="Salvar"
+						rendered="#{historicoBean.exibePainelDados}"
+						actionListener="#{historicoBean.salvar}"
+						update=":mensagem :formulario:painelDados" />
 				</h:panelGrid>
 			</h:panelGroup>
-			
+
 		</p:panel>
 	</h:form>
 </h:body>
