@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.ws.rs.client.Client;
@@ -14,13 +13,11 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.omnifaces.util.Messages;
 
 import com.google.gson.Gson;
 
 import br.com.eduardo.drogaria.dao.FabricanteDAO;
-import br.com.eduardo.drogaria.domain.Estado;
 import br.com.eduardo.drogaria.domain.Fabricante;
 
 @SuppressWarnings("serial")

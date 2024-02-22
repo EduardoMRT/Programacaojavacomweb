@@ -13,6 +13,9 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.ManyToAny;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 @Access(AccessType.FIELD)
 @Entity
 public class Historico extends GenericDomain{

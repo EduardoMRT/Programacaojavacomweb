@@ -29,9 +29,12 @@
 					update=":mensagem :formulario:painelDados"
 					actionListener="#{historicoBean.buscar}"
 					process="@this :formulario:codigo" />
+
+
 			</h:panelGrid>
 
 			<h:panelGroup layout="block" id="painelDados">
+
 				<h:panelGrid columns="2"
 					rendered="#{historicoBean.exibePainelDados}">
 					<p:outputLabel value="Descrição:" />
@@ -59,12 +62,51 @@
 					<p:commandButton value="Salvar"
 						rendered="#{historicoBean.exibePainelDados}"
 						actionListener="#{historicoBean.salvar}"
-						update=":mensagem :formulario:painelDados" 
-						/>
+						update=":mensagem :formulario:painelDados" />
 				</h:panelGrid>
 			</h:panelGroup>
 
 		</p:panel>
+	</h:form>
+
+
+	<h:form id="formularioListar">
+		<p:commandButton value="Listar Históricos"
+			update=":mensagem :formularioListar:painelExibir"
+			actionListener="#{historicoBean.mostrar}" />
+
+		<h:panelGroup layout="block" id="painelExibir">
+			<p:panel header="Listagem de Histórico">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" value="#{historicoBean.historicos}"
+					var="historico" rows="5"
+					rendered="#{historicoBean.exibeTabelaDados}">
+
+					<p:column headerText="Produto">
+						<h:outputText value="#{historico.produto.descricao}" />
+					</p:column>
+
+					<p:column headerText="Observações">
+						<h:outputText value="#{historico.observacoes}" />
+					</p:column>
+
+					<p:column headerText="Data">
+						<h:outputText value="#{historico.horario}" />
+					</p:column>
+
+					<p:column headerText="Opções">
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{historicoBean.excluir}"
+							update=":mensagem :formularioListar:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir a cidade?" icon="ui-icon-alert" />
+							<f:attribute name="cidadeSelecionada" value="#{historico}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:panelGroup>
+
 	</h:form>
 </h:body>
 </html>
