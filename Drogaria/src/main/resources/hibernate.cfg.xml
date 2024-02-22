@@ -38,6 +38,7 @@
 		<mapping class="br.com.eduardo.drogaria.domain.Estado" />
 		<mapping class="br.com.eduardo.drogaria.domain.Fabricante" />
 		<mapping class="br.com.eduardo.drogaria.domain.Funcionario" />
+		<mapping class="br.com.eduardo.drogaria.domain.Historico" />
 		<mapping class="br.com.eduardo.drogaria.domain.ItemVenda" />		
 		<mapping class="br.com.eduardo.drogaria.domain.Pessoa" />
 		<mapping class="br.com.eduardo.drogaria.domain.Produto" />
