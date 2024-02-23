@@ -1,5 +1,6 @@
 package br.com.eduardo.drogaria.bean;
 
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.Date;
@@ -108,8 +109,10 @@ public class HistoricoBean implements Serializable {
 		}
 	}
 
-	public void excluir() {
+	public void excluir(javax.faces.event.ActionEvent evento) {
 		try {
+			historico = (Historico) evento.getComponent().getAttributes().get("historicoSelecionado");
+			
 			HistoricoDAO historicoDAO = new HistoricoDAO();
 			historicoDAO.excluir(historico);
 		} catch (RuntimeException erro) {

@@ -102,8 +102,8 @@
 							actionListener="#{historicoBean.excluir}"
 							update=":mensagem :formularioListar:tabela">
 							<p:confirm header="Confirmação"
-								message="Deseja excluir a cidade?" icon="ui-icon-alert" />
-							<f:attribute name="cidadeSelecionada" value="#{historico}" />
+								message="Deseja excluir o Histórico?" icon="ui-icon-alert" />
+							<f:attribute name="historicoSelecionado" value="#{historico}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
