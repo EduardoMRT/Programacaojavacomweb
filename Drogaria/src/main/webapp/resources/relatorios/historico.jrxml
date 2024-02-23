@@ -64,9 +64,9 @@ FROM drogaria.historico
 		</band>
 	</title>
 	<pageHeader>
-		<band height="40" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="144" y="5" width="273" height="30" uuid="22929263-dd6b-4d8e-93d4-f8225d4d63e8"/>
+				<reportElement x="144" y="2" width="273" height="28" uuid="22929263-dd6b-4d8e-93d4-f8225d4d63e8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Modern No. 20" size="18" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -82,9 +82,14 @@ FROM drogaria.historico
 			<textField>
 				<reportElement x="280" y="60" width="100" height="30" uuid="d1190494-3a03-42cd-b89b-818a7a249c13">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9c58920c-9de9-43a5-b1e2-650b470b191d"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
+					<paragraph leftIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{fDescricao}]]></textFieldExpression>
 			</textField>
@@ -92,17 +97,25 @@ FROM drogaria.historico
 				<reportElement x="180" y="60" width="100" height="30" uuid="2920c1ad-6b02-4748-b3db-276c85b866f4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9c58920c-9de9-43a5-b1e2-650b470b191d"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Fabricante:]]></text>
+				<text><![CDATA[  Fabricante:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="280" y="151" width="100" height="30" uuid="654f211a-6302-4a01-9766-e125df4eb5e2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f6ad40a-e291-4134-a42a-02181c0812bd"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
+					<paragraph leftIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{horario}]]></textFieldExpression>
 			</textField>
@@ -110,44 +123,67 @@ FROM drogaria.historico
 				<reportElement x="180" y="151" width="100" height="30" uuid="7f45f854-14fd-45e8-9aa1-4d32feda2ab1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f6ad40a-e291-4134-a42a-02181c0812bd"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Horário]]></text>
+				<text><![CDATA[  Data:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="280" y="121" width="100" height="30" uuid="c96afd37-8f45-4904-bede-132c2b786dff">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9b55ddca-9ca1-474c-8f08-a66834ad7c1c"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
+					<paragraph leftIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{observacoes}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="40" width="100" height="20" uuid="32805aaa-bc2d-4c7b-8ecd-97c19c6a4bc6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4ddcb15-e2a3-4dfc-8ffc-ddcfbe7b7d8f"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
+					<paragraph leftIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="90" width="100" height="31" uuid="cca158b7-2f55-4592-b4c2-339b8c764a5e">
+				<reportElement x="306" y="90" width="74" height="31" uuid="cca158b7-2f55-4592-b4c2-339b8c764a5e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f1f989e-5a8d-41bc-8f8d-88e80a74c03b"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
+					<paragraph leftIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="20" width="100" height="20" uuid="4d5248a1-98eb-41fb-8ea2-49b7c1c1be89">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f6ace7e5-ab2d-44ef-91fa-53c0eb93ee4e"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
+					<paragraph leftIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pDescricao}]]></textFieldExpression>
 			</textField>
@@ -155,35 +191,61 @@ FROM drogaria.historico
 				<reportElement x="180" y="40" width="100" height="20" uuid="1974a739-2a2b-4213-bde8-19551668d197">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e4ddcb15-e2a3-4dfc-8ffc-ddcfbe7b7d8f"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Quantidade]]></text>
+				<text><![CDATA[  Quantidade]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="20" width="100" height="20" uuid="c84aea3e-2e5e-40b3-97e8-bd4317f87202"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Produto:]]></text>
+				<text><![CDATA[  Produto:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="90" width="100" height="31" uuid="264c40b8-b6a3-45b7-bcad-3d6658c4770f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f1f989e-5a8d-41bc-8f8d-88e80a74c03b"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Preço:]]></text>
+				<text><![CDATA[  Preço:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="121" width="100" height="30" uuid="7bd3ddd7-f55c-466d-835e-1cd5ffb7ecd6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9b55ddca-9ca1-474c-8f08-a66834ad7c1c"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Observacoes]]></text>
+				<text><![CDATA[  Observações:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="90" width="26" height="31" uuid="b1caa263-f7e3-4ab9-ae19-648c84efd570">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[  R$]]></text>
 			</staticText>
 		</band>
 	</detail>

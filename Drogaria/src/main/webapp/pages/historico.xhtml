@@ -74,6 +74,9 @@
 		<p:commandButton value="Listar Históricos"
 			update=":mensagem :formularioListar:painelExibir"
 			actionListener="#{historicoBean.mostrar}" />
+			
+		<p:commandButton icon="ui-icon-print"
+			actionListener="#{historicoBean.imprimir}" />
 
 		<h:panelGroup layout="block" id="painelExibir">
 			<p:panel header="Listagem de Histórico">

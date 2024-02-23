@@ -10,45 +10,57 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-import org.hibernate.annotations.ManyToAny;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
+@SuppressWarnings("serial")
 @Access(AccessType.FIELD)
 @Entity
-public class Historico extends GenericDomain{
+public class Historico extends GenericDomain {
+	
+	@Transient
+	private String caminho;
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horario;
-	
+
 	@Column(nullable = true, length = 250)
 	private String observacoes;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Produto produto;
-	
+
 	public Date getHorario() {
 		return horario;
 	}
+
 	public void setHorario(Date horario) {
 		this.horario = horario;
 	}
+
 	public String getObservacoes() {
 		return observacoes;
 	}
+
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
+
 	public Produto getProduto() {
 		return produto;
 	}
+
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
 	
+	public String getCaminho() {
+		return caminho;
+	}
 	
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
+	}
+
 }
