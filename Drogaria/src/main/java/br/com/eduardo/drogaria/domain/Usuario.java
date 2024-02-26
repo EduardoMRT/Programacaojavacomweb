@@ -8,11 +8,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @SuppressWarnings("serial")
 @Entity
+@Getter
+@Setter
 @Access(AccessType.FIELD)
 public class Usuario extends GenericDomain{
-	@Column(nullable = false, length = 32)
+	@Column(nullable = false, length = 128)
 	private String senha;
 	
 	@Column(nullable = false)
@@ -25,17 +30,8 @@ public class Usuario extends GenericDomain{
 	@JoinColumn(nullable = false)
 	private Pessoa pessoa;
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public Character getTipo() {
-		return tipo;
-	}
+	@Transient
+	private String senhaSemCriptografia;
 	
 	@Transient //diz que esse método só serve para formatação
 	public String getTipoFormatado(){
