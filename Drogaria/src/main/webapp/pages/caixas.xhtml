@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
+	<ui:define name="conteudo">
+
+		<h:form id="formularioCaixa">
+			<p:panel header="Listagem de Caixas">
+				<p:dataTable id="tabelaCaixas"
+					emptyMessage="Nenhum registro encontrado." paginator="true"
+					value="#{caixaBean.caixas}" var="caixa" rows="5">
+
+					<f:facet name="footer">
+						<p:commandButton value="Novo" actionListener="#{caixaBean.novo}"
+							oncomplete="PF('dialogo').show();"
+							update=":mensagem :formCadastro:painel">
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
+					</f:facet>
+
+					<p:column headerText="Data de Abertura"
+						filterBy="#{caixa.dataAbertura}" sortBy="#{caixa.dataAbertura}">
+						<h:outputText value="#{caixa.dataAbertura}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Valor" filterBy="#{caixa.valorAbertura}">
+						<h:outputText value="R$#{caixa.valorAbertura}" />
+					</p:column>
+
+					<!-- 					<p:column headerText="Opções"> -->
+					<!-- 						<p:commandButton icon="ui-icon-plus" -->
+					<!-- 							actionListener="#{vendaBean.adicionar}" -->
+					<!-- 							update=":formulario:tabelaCesta :formulario:painelFinalizacao"> -->
+					<!-- 							<f:attribute name="produtoSelecionado" value="#{produto}" /> -->
+					<!-- 						</p:commandButton> -->
+					<!-- 					</p:column> -->
+
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+		<p:dialog header="Abertura de Caixa" widgetVar="dialogo"
+			draggable="false" resizable="false" modal="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painel" columns="2">
+					<p:outputLabel for="dataAbertura" value="Data de Abertura:" />
+					<p:calendar id="dataAbertura"
+						value="#{caixaBean.caixa.dataAbertura}" required="true"
+						requiredMessage="O campo 'Data de Abertura' é obrigatório"
+						size="10" mindate="10-10-1999" timeZone="GMT-3" locale="pt_BR" />
+
+
+
+
+
+					<p:outputLabel value="Valor de Abertura:" />
+					<p:inputText maxlength="50" size="30"
+						value="#{caixaBean.caixa.valorAbertura}" required='true'
+						requiredMessage="O campo 'Valor de Abertura' é obrigatório" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{caixaBean.salvar}"
+						update=":mensagem :formCadastro:painel :formularioCaixa:tabelaCaixas" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

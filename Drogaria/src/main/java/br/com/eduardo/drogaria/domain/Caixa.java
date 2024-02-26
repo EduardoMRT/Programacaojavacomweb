@@ -21,7 +21,7 @@ import lombok.Setter;
 public class Caixa extends GenericDomain{
 	
 	@Column(nullable = false, unique = true)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
 	
 	@Column(nullable = true)

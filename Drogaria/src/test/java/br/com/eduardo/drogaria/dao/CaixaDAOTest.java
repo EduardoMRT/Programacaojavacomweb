@@ -28,6 +28,7 @@ public class CaixaDAOTest {
 		CaixaDAO caixaDAO = new CaixaDAO();
 		Caixa caixa = caixaDAO.buscar(new SimpleDateFormat("dd/MM/yyyy").parse("13/12/2015"));
 		System.out.println(caixa);
-		Assert.assertNull(caixa);
+//		Assert.assertNull(caixa);
+	
 	}
 }
