@@ -26,6 +26,9 @@ import br.com.eduardo.drogaria.domain.Venda;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
+//adicionar Get e Set Lombok
+//@Getters
+//@Setters
 public class VendaBean implements Serializable {
 	private Venda venda;
 	
