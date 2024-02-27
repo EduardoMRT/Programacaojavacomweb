@@ -62,6 +62,10 @@ public class ClienteBean implements Serializable {
 	@PostConstruct
 	public void listar(){
 		EntrarBean entrarBean = new EntrarBean();
+		if(entrarBean.autentica() == false) {
+			String redirecionar = "entrar.xhtml";
+			
+		}
 		System.out.println(entrarBean.autentica() == false ? "Você precisa fazer login para acessar a página" : "Usuário autenticado");  
 		try{
 			novo();
