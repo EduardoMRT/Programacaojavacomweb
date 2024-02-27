@@ -16,6 +16,8 @@ import br.com.eduardo.drogaria.dao.UsuarioDAO;
 import br.com.eduardo.drogaria.domain.Pessoa;
 import br.com.eduardo.drogaria.domain.Usuario;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
@@ -77,6 +79,9 @@ public class UsuarioBean implements Serializable {
 	public void salvar() {
 		try {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			String senhaCripto = DigestUtils.sha256Hex(usuario.getSenha());
+			usuario.setSenha(senhaCripto);
+			
 			usuarioDAO.merge(usuario);
 			
 			usuario = new Usuario();

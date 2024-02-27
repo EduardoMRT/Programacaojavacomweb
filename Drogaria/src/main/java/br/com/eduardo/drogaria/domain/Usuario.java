@@ -30,8 +30,6 @@ public class Usuario extends GenericDomain{
 	@JoinColumn(nullable = false)
 	private Pessoa pessoa;
 
-	@Transient
-	private String senhaSemCriptografia;
 	
 	@Transient //diz que esse método só serve para formatação
 	public String getTipoFormatado(){
@@ -47,10 +45,6 @@ public class Usuario extends GenericDomain{
 			return tipoFormatado;
 	}
 	
-	public void setTipo(Character tipo) {
-		this.tipo = tipo;
-	}
-	
 	public String getAtivoFormatado() {
 		String ativoFormatado = null;
 		if(ativo == true) {
@@ -60,22 +54,5 @@ public class Usuario extends GenericDomain{
 		}
 		return ativoFormatado;
 	}
-	
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-	
 	
 }
