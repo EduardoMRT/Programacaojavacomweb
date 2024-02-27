@@ -5,13 +5,24 @@ import org.junit.Test;
 
 import br.com.eduardo.drogaria.domain.Pessoa;
 import br.com.eduardo.drogaria.domain.Usuario;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+@Getter
+@Setter
 public class UsuarioDAOTest {
-	@Test
-//	@Ignore
+		
+	private List<Usuario> usuarios;
+	public String senha;
+	
+	@Test	
+	@Ignore
 	public void salvar(){
+
 		String senhaCripto;
 		
 		PessoaDAO pessoaDAO = new PessoaDAO();
@@ -36,4 +47,6 @@ public class UsuarioDAOTest {
 		
 		System.out.println("Usuário salvo com sucesso.");
 	}
+	
+	
 }	
