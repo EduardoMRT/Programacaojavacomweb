@@ -15,10 +15,12 @@ import br.com.eduardo.drogaria.dao.PessoaDAO;
 import br.com.eduardo.drogaria.dao.UsuarioDAO;
 import br.com.eduardo.drogaria.domain.Pessoa;
 import br.com.eduardo.drogaria.domain.Usuario;
+import br.com.eduardo.drogaria.util.HibernateUtil;
 import lombok.Getter;
 import lombok.Setter;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.Session;
 
 //Lombok
 @SuppressWarnings("serial")
@@ -36,6 +38,7 @@ public class EntrarBean implements Serializable {
 	private String confirmaSenha;
 	private int contador;
 	private Boolean validado = false;
+	static Boolean validadoFinal = false;
 
 	@PostConstruct
 	public void listar() {
@@ -53,7 +56,7 @@ public class EntrarBean implements Serializable {
 
 	}
 
-	public void entrar(ActionEvent evento) {
+	public Boolean entrar(ActionEvent evento) {
 
 		
 		usuarios = new ArrayList<Usuario>();
@@ -76,7 +79,7 @@ public class EntrarBean implements Serializable {
 					if (senhaCripto.equals(usuarioTeste.getSenha())) {
 						usuario.setSenha(senhaCripto);
 						validado = true;
-						
+						validadoFinal = validado;
 					}
 				}
 				if (validado != true) {
@@ -87,7 +90,8 @@ public class EntrarBean implements Serializable {
 				}
 				if (contador >= 5) {
 					Messages.addGlobalWarn("Para questões de segurança, o usuário foi bloqueado");
-					// Terminar bloqueio
+					Usuario usuarioBloqueado = usuarioDAO.buscar(usuario.getCodigo());
+					usuarioBloqueado.setAtivo(false);
 				}
 
 			} catch (RuntimeException erro) {
@@ -96,6 +100,10 @@ public class EntrarBean implements Serializable {
 			}
 
 		}
-
+		return validadoFinal;
+	}
+	
+	public Boolean autentica() {
+		return validadoFinal;
 	}
 }

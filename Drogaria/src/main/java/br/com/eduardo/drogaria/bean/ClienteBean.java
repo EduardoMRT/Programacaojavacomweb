@@ -57,9 +57,12 @@ public class ClienteBean implements Serializable {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
-
+	
+	
 	@PostConstruct
 	public void listar(){
+		EntrarBean entrarBean = new EntrarBean();
+		System.out.println(entrarBean.autentica() == false ? "Você precisa fazer login para acessar a página" : "Usuário autenticado");  
 		try{
 			novo();
 			ClienteDAO clienteDAO = new ClienteDAO();
