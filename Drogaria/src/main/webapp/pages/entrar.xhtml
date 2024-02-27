@@ -51,18 +51,21 @@
 					<p:outputLabel value="Senha:" />
 					<p:inputText maxlength="128" size="30"
 						value="#{entrarBean.usuario.senha}" required='true'
-						requiredMessage="O campo 'Senha' é obrigatório" id="senha"/>
+						requiredMessage="O campo 'Senha' é obrigatório" id="senha" />
 
 
 					<p:outputLabel value="Confirmar senha:" />
 					<p:inputText maxlength="128" size="30"
 						value="#{entrarBean.confirmaSenha}" required='true'
-						requiredMessage="O campo 'Senha' é obrigatório" id="senhaConfirmada"/>
+						requiredMessage="O campo 'Senha' é obrigatório"
+						id="senhaConfirmada" />
 				</h:panelGrid>
 
 				<h:panelGrid columns="2">
 					<p:commandButton value="Entrar" onclick="verificaSenha()"
-						actionListener="#{entrarBean.entrar}" update=":mensagem"/>
+						actionListener="#{entrarBean.entrar}" update=":mensagem">
+							<f:attribute name="pessoaSelecionada" value="#{pessoa}" />
+					</p:commandButton>
 					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 				</h:panelGrid>
 			</h:form>

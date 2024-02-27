@@ -7,10 +7,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
 import br.com.eduardo.drogaria.dao.PessoaDAO;
+import br.com.eduardo.drogaria.dao.UsuarioDAO;
 import br.com.eduardo.drogaria.domain.Pessoa;
 import br.com.eduardo.drogaria.domain.Usuario;
 import lombok.Getter;
@@ -51,7 +53,14 @@ public class EntrarBean implements Serializable {
 
 	}
 
-	public void entrar() {
+	public void entrar(ActionEvent evento) {
+
+		
+		usuarios = new ArrayList<Usuario>();
+
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		usuarios = usuarioDAO.listar();
+
 		if (!confirmaSenha.equals(usuario.getSenha())) {
 			System.out.println(usuario.getSenha());
 			System.out.println(confirmaSenha);
@@ -59,17 +68,22 @@ public class EntrarBean implements Serializable {
 		} else {
 			String senhaCripto = DigestUtils.sha256Hex(usuario.getSenha());
 			try {
+				if (usuarios.isEmpty()) {
+					System.out.println("A lista de usuários está vazia.");
+				}
+
 				for (Usuario usuarioTeste : usuarios) {
-					System.out.println("Usuario teste senha: "+usuarioTeste.getSenha());
 					if (senhaCripto.equals(usuarioTeste.getSenha())) {
 						usuario.setSenha(senhaCripto);
 						validado = true;
-						Messages.addGlobalInfo("Você entrou na sua conta com sucesso!");
+						
 					}
 				}
 				if (validado != true) {
 					Messages.addGlobalWarn("Senha incorreta!");
 					contador++;
+				}else {
+					Messages.addGlobalInfo("Você entrou na sua conta com sucesso!");
 				}
 				if (contador >= 5) {
 					Messages.addGlobalWarn("Para questões de segurança, o usuário foi bloqueado");
