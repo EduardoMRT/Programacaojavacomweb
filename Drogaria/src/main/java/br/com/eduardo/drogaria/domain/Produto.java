@@ -10,9 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @SuppressWarnings("serial")
 @Entity
 @Access(AccessType.FIELD)
+@Getter
+@Setter
 public class Produto extends GenericDomain{
 	@Column(length = 80 , nullable = false)
 	private String descricao;
@@ -30,44 +35,4 @@ public class Produto extends GenericDomain{
 	@Transient
 	private String caminho;
 	
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Short getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Short quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public BigDecimal getPreco() {
-		return preco;
-	}
-
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
-	}
-
-	public Fabricante getFabricante() {
-		return fabricante;
-	}
-
-	public void setFabricante(Fabricante fabricante) {
-		this.fabricante = fabricante;
-	}
-	
-	
-	public String getCaminho() {
-		return caminho;
-	}
-	
-	public void setCaminho(String caminho) {
-		this.caminho = caminho;
-	}
 }

@@ -14,7 +14,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.persistence.criteria.Path;
 
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
