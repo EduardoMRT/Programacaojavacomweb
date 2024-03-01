@@ -1,4 +1,5 @@
-package br.com.eduardo.drogaria.bean;
+package br.com.eduardo.drogaria.service;
+
 
 import java.io.Serializable;
 import java.util.Arrays;

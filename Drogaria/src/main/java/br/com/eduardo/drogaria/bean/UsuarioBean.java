@@ -81,7 +81,7 @@ public class UsuarioBean implements Serializable {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			String senhaCripto = DigestUtils.sha256Hex(usuario.getSenha());
 			usuario.setSenha(senhaCripto);
-
+			
 			usuarioDAO.merge(usuario);
 
 			usuario = new Usuario();
@@ -96,7 +96,6 @@ public class UsuarioBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-
 
 	public void excluir(ActionEvent evento) {
 		try {
