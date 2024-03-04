@@ -34,6 +34,11 @@
 						<h:outputText value="R$#{caixa.valorAbertura}" />
 					</p:column>
 
+					<p:column headerText="Funcionário"
+						filterBy="#{caixa.funcionario.pessoa.nome}">
+						<h:outputText value="#{caixa.funcionario.pessoa.nome}" />
+					</p:column>
+
 					<!-- 					<p:column headerText="Opções"> -->
 					<!-- 						<p:commandButton icon="ui-icon-plus" -->
 					<!-- 							actionListener="#{vendaBean.adicionar}" -->
@@ -57,8 +62,16 @@
 						size="10" mindate="10-10-1999" timeZone="GMT-3" locale="pt_BR" />
 
 
-
-
+					<p:outputLabel value="Funcionário:" />
+					<p:selectOneMenu filter="true" value="#{caixaBean.funcionario}"
+						converter="omnifaces.SelectItemsConverter" required='true'
+						requiredMessage="O campo 'Funcionário' é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione um funcionário" />
+						<f:selectItems value="#{caixaBean.funcionarios}" var="funcionario"
+							itemValue="#{funcionario}"
+							itemLabel="#{caixaBean.funcionario.pessoa.nome} - #{caixaBean.funcionario.pessoa.cpf}" />
+					</p:selectOneMenu>
 
 					<p:outputLabel value="Valor de Abertura:" />
 					<p:inputText maxlength="50" size="30"
@@ -69,7 +82,8 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
 						actionListener="#{caixaBean.salvar}"
-						update=":mensagem :formCadastro:painel :formularioCaixa:tabelaCaixas" />
+						update=":mensagem :formCadastro:painel :formularioCaixa:tabelaCaixas">
+					</p:commandButton>
 					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 				</h:panelGrid>
 			</h:form>
