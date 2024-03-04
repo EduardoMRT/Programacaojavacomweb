@@ -1,7 +1,6 @@
 package br.com.eduardo.drogaria.bean;
 
 import java.io.Serializable;
-import java.util.EventListener;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,14 +8,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.omnifaces.util.Messages;
 
 import br.com.eduardo.drogaria.dao.PessoaDAO;
 import br.com.eduardo.drogaria.dao.UsuarioDAO;
 import br.com.eduardo.drogaria.domain.Pessoa;
 import br.com.eduardo.drogaria.domain.Usuario;
-
-import org.apache.commons.codec.digest.DigestUtils;
 
 @SuppressWarnings("serial")
 @ManagedBean

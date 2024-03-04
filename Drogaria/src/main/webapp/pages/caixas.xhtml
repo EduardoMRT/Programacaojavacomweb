@@ -61,16 +61,16 @@
 						requiredMessage="O campo 'Data de Abertura' é obrigatório"
 						size="10" mindate="10-10-1999" timeZone="GMT-3" locale="pt_BR" />
 
+					<p:outputLabel value="Funcionário:"/>
+					<p:selectOneMenu id="funcionario" filter="true"
+						value="#{caixaBean.caixa.funcionario}" required="true"
+						requiredMessage="O campo 'Funcionário' é obrigatório"
+						converter="omnifaces.SelectItemsConverter">
 
-					<p:outputLabel value="Funcionário:" />
-					<p:selectOneMenu filter="true" value="#{caixaBean.funcionario}"
-						converter="omnifaces.SelectItemsConverter" required='true'
-						requiredMessage="O campo 'Funcionário' é obrigatório">
 						<f:selectItem noSelectionOption="true"
 							itemLabel="Selecione um funcionário" />
 						<f:selectItems value="#{caixaBean.funcionarios}" var="funcionario"
-							itemValue="#{funcionario}"
-							itemLabel="#{caixaBean.funcionario.pessoa.nome} - #{caixaBean.funcionario.pessoa.cpf}" />
+							itemValue="#{funcionario}" itemLabel="#{funcionario.pessoa.nome}" />
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Valor de Abertura:" />

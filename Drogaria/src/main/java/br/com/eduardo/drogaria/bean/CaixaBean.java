@@ -24,6 +24,7 @@ import lombok.Setter;
 @Setter
 public class CaixaBean implements Serializable {
 	private Caixa caixa;
+	private String nome;
 	private Funcionario funcionario;
 	private List<Caixa> caixas;
 	private List<Funcionario> funcionarios;
@@ -54,6 +55,7 @@ public class CaixaBean implements Serializable {
 
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listar();
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar abrir um caixa");
 			erro.printStackTrace();
@@ -63,12 +65,14 @@ public class CaixaBean implements Serializable {
 	public void salvar() {
 		try {
 			CaixaDAO caixaDAO = new CaixaDAO();
-			caixa.setFuncionario(funcionario);
-			
 			caixaDAO.merge(caixa);
+			
+			caixa = new Caixa();
+			caixas = caixaDAO.listar();
 			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listar();
+			
 			Messages.addGlobalInfo("Caixa aberto com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar um caixa");
