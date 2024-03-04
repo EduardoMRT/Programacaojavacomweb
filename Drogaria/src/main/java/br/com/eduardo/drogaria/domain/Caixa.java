@@ -7,6 +7,8 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -30,4 +32,9 @@ public class Caixa extends GenericDomain{
 	
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal valorAbertura;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Funcionario funcionario;
 }
+
