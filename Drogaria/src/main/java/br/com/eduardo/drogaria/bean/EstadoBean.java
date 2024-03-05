@@ -45,6 +45,8 @@ public class EstadoBean implements Serializable {
 	@PostConstruct // como se fosse um construtor
 	public void listar() {
 		try {
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar();
 		} catch (RuntimeException erro) {

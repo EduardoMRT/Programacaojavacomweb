@@ -61,7 +61,8 @@ public class HistoricoBean implements Serializable {
 	
 	public void listar() {
 		try {
-
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
 			HistoricoDAO historicoDAO = new HistoricoDAO();
 			historicos = historicoDAO.listar();
 

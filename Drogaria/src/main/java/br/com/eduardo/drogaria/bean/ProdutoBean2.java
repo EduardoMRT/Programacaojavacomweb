@@ -40,6 +40,8 @@ public class ProdutoBean2 implements Serializable{
 	
 	public void listar() {
 		try {
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
 			produtos = produtoDAO.listar("descricao");	
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os produtos");

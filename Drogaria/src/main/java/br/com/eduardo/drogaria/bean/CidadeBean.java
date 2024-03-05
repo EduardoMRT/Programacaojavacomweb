@@ -1,5 +1,6 @@
 package br.com.eduardo.drogaria.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import br.com.eduardo.drogaria.dao.CidadeDAO;
@@ -51,6 +53,9 @@ public class CidadeBean implements Serializable {
 	@PostConstruct
 	public void listar() {
 		try {
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
+			
 			CidadeDAO cidadeDAO = new CidadeDAO();
 			cidades = cidadeDAO.listar("nome");
 		} catch (RuntimeException erro) {

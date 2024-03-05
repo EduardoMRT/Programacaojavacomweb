@@ -11,6 +11,7 @@
 	<title>SiGDro</title>
 	<!-- Sistema de Gerenciameto de Drogaria -->
 	<h:outputStylesheet library="css" name="modelo.css" />
+	<h:outputScript library="js" name="recarrega.js" />
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
@@ -41,14 +42,16 @@
 						<p:menuitem value="Entrar SRD" url="../pages/autenticacao.xhtml" />
 						<p:menuitem value="Entrar EMRT" url="../pages/entrar.xhtml" />
 						<p:menuitem value="Histórico" url="../pages/historico.xhtml" />
-						<p:menuitem>
-							<p:commandButton value="Sair"
-								actionListener="#{autenticacaoBean.sair}" />
-						</p:menuitem>
 						<p:menuitem value="Venda" url="../pages/vendas.xhtml" />
 					</p:submenu>
 					<p:submenu label="Ajuda">
 						<p:menuitem value="Sobre" />
+					</p:submenu>
+					<p:submenu label="Sair">
+						<p:menuitem>
+							<p:commandButton value="Sair"
+								actionListener="#{entrarBean.sair}" onclick="Recarregar()"/>
+						</p:menuitem>
 					</p:submenu>
 				</p:menubar>
 			</h:form>

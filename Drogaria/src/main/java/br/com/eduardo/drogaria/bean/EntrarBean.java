@@ -30,7 +30,7 @@ import org.hibernate.Session;
 //---------
 @ManagedBean
 @ViewScoped
-public class EntrarBean implements Serializable {
+public class EntrarBean implements Serializable{
 	private Usuario usuario;
 	private Pessoa pessoa;
 	private List<Usuario> usuarios;
@@ -100,6 +100,12 @@ public class EntrarBean implements Serializable {
 			}
 
 		}
+		return validadoFinal;
+	}
+	
+	public Boolean sair() {
+		validadoFinal = false;
+		autentica();
 		return validadoFinal;
 	}
 	
