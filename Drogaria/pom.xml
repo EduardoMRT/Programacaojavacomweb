@@ -149,5 +149,18 @@
 			<artifactId>cdi-api</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<!-- Spring Email -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-client -->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.boot</groupId>-->
+		<!--			<artifactId>spring-boot-starter-oauth2-client</artifactId>-->
+		<!--			<version>3.2.3</version>-->
+		<!--		</dependency>-->
+		<!-- Jakarta Email -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>jakarta.mail</artifactId>
+			<version>1.6.3</version>
+		</dependency>
 	</dependencies>
 </project>
