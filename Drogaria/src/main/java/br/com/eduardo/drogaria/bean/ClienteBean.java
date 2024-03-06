@@ -60,7 +60,8 @@ public class ClienteBean implements Serializable {
 	
 	@PostConstruct
 	public void listar(){
-	
+		ValidaBean validaBean = new ValidaBean();
+		validaBean.verifica();
 //		System.out.println(entrarBean.autentica() == false ? "Você precisa fazer login para acessar a página" : "Usuário autenticado");  
 		try{
 			novo();

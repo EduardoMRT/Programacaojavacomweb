@@ -33,6 +33,9 @@ public class CaixaBean implements Serializable {
 	@PostConstruct
 	public void listar() {
 		try {
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
+			
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listar();
 

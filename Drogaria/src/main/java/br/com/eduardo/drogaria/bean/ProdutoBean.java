@@ -66,6 +66,8 @@ public class ProdutoBean implements Serializable {
 	@PostConstruct
 	public void listar() {
 		try {
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar();
 		} catch (RuntimeException erro) {
@@ -76,6 +78,8 @@ public class ProdutoBean implements Serializable {
 
 	public void novo() {
 		try {
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
 			produto = new Produto();
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();

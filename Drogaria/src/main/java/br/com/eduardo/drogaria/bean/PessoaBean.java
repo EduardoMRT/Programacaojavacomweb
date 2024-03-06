@@ -81,6 +81,8 @@ public class PessoaBean implements Serializable {
 	@PostConstruct
 	public void listar() {
 		try {
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
 		} catch (RuntimeException erro) {

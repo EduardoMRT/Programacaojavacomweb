@@ -77,6 +77,8 @@ public class VendaBean implements Serializable {
 	@PostConstruct
 	public void novo() {
 		try {
+			ValidaBean validaBean = new ValidaBean();
+			validaBean.verifica();
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
 			
