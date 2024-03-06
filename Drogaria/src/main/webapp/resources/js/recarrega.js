@@ -1,1 +1,3 @@
-Location.reload ();
+function Recarregar() {
+	window.location = "../pages/entrar.xhtml";
+}
