@@ -9,13 +9,25 @@ public class ValidaBean {
 	public void verifica() {
 		try {
 			EntrarBean entrarBean = new EntrarBean();
-			if(entrarBean.autentica() == false) {
+			if (entrarBean.autentica() == false) {
 				Messages.addGlobalInfo("Você precisa estar logado para acessar essa página");
 				Faces.redirect("./pages/entrar.xhtml");
 			}
 		} catch (IOException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao verificar o usuário");
 			erro.printStackTrace();
+		}
+	}
+
+	public void bloqueio() {
+		try {
+			EntrarBean entrarBean = new EntrarBean();
+			if (!entrarBean.getUsuario().getTipo().equals('A')) {
+				Faces.redirect("./pages/principal.xhtml");
+				Messages.addGlobalWarn("Você não tem permissão para acessar essa página!");
+			}
+		} catch (IOException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao bloquear a página");
 		}
 	}
 }
