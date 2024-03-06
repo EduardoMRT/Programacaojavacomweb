@@ -40,6 +40,7 @@ public class EntrarBean implements Serializable{
 	private int contador;
 	private Boolean validado = false;
 	static Boolean validadoFinal = false;
+	static Usuario usuarioLogado;
 
 	@PostConstruct
 	public void listar() {
@@ -82,10 +83,11 @@ public class EntrarBean implements Serializable{
 						usuario.setSenha(senhaCripto);
 						validado = true;
 						validadoFinal = validado;
+						usuarioLogado = usuarioTeste;
 					}
 				}
 				if (validado != true) {
-					Messages.addGlobalWarn("Senha incorreta!");
+					Messages.addGlobalWarn("CPF ou Senha incorreta!");
 					contador++;
 				}else {
 					Messages.addGlobalInfo("Você entrou na sua conta com sucesso!");
@@ -113,5 +115,9 @@ public class EntrarBean implements Serializable{
 	
 	public Boolean autentica() {
 		return validadoFinal;
+	}
+	
+	public Usuario usuarioLogado(){
+		return usuarioLogado;
 	}
 }

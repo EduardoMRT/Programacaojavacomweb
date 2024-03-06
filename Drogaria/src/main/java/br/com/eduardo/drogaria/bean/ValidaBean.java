@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
+import br.com.eduardo.drogaria.domain.Usuario;
+
 public class ValidaBean {
 	public void verifica() {
 		try {
@@ -16,6 +18,22 @@ public class ValidaBean {
 		} catch (IOException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao verificar o usuário");
 			erro.printStackTrace();
+		}
+	}
+	
+	public void bloqueio() {
+		try {
+			System.out.println("Entrou");
+			
+			EntrarBean entrarBean = new EntrarBean();
+			Usuario usuario = entrarBean.usuarioLogado();
+			System.out.println("Usuario:"+usuario.getSenha());
+			if (usuario.getTipo() != 'A') {
+				Faces.redirect("./pages/principal.xhtml");
+				Messages.addGlobalWarn("Você não tem permissão para acessar essa página!");
+			}
+		} catch (IOException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao bloquear a página");
 		}
 	}
 }
