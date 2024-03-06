@@ -36,6 +36,7 @@ public class EntrarBean implements Serializable{
 	private List<Usuario> usuarios;
 	private List<Pessoa> pessoas;
 	private String confirmaSenha;
+	private String cpf;
 	private int contador;
 	private Boolean validado = false;
 	static Boolean validadoFinal = false;
@@ -70,13 +71,14 @@ public class EntrarBean implements Serializable{
 			Messages.addGlobalError("A senha e a senha confirmada não confere");
 		} else {
 			String senhaCripto = DigestUtils.sha256Hex(usuario.getSenha());
+			
 			try {
 				if (usuarios.isEmpty()) {
 					System.out.println("A lista de usuários está vazia.");
 				}
 
 				for (Usuario usuarioTeste : usuarios) {
-					if (senhaCripto.equals(usuarioTeste.getSenha())) {
+					if ((senhaCripto.equals(usuarioTeste.getSenha())) && (cpf.equals(usuarioTeste.getPessoa().getCpf()))) {
 						usuario.setSenha(senhaCripto);
 						validado = true;
 						validadoFinal = validado;
