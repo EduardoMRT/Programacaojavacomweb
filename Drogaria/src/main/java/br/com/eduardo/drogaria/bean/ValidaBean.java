@@ -11,7 +11,7 @@ public class ValidaBean {
 	public void verifica() {
 		try {
 			EntrarBean entrarBean = new EntrarBean();
-			if(entrarBean.autentica() == false) {
+			if (entrarBean.autentica() == false) {
 				Messages.addGlobalInfo("Você precisa estar logado para acessar essa página");
 				Faces.redirect("./pages/entrar.xhtml");
 			}
@@ -20,14 +20,11 @@ public class ValidaBean {
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void bloqueio() {
 		try {
-			System.out.println("Entrou");
-			
 			EntrarBean entrarBean = new EntrarBean();
 			Usuario usuario = entrarBean.usuarioLogado();
-			System.out.println("Usuario:"+usuario.getSenha());
 			if (usuario.getTipo() != 'A') {
 				Faces.redirect("./pages/principal.xhtml");
 				Messages.addGlobalWarn("Você não tem permissão para acessar essa página!");
