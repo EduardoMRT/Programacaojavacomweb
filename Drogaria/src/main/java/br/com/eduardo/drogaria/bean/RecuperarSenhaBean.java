@@ -1,6 +1,7 @@
 package br.com.eduardo.drogaria.bean;
 
 import java.io.Serializable;
+import java.lang.Math;
 import java.util.Random;
 
 import javax.faces.bean.ManagedBean;
@@ -21,20 +22,32 @@ import lombok.Setter;
 @Setter
 public class RecuperarSenhaBean implements Serializable {
 	private String cpf;
+
 	private String senhaTemp;
+	private int digitoSenha;
 
 	public void recuperar() {
+
 		try {
+			String mensagem;
+			String email;
+			String assunto;
 
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			Usuario usuario = usuarioDAO.buscarPorCPF(cpf);
 			CreateEmail createEmail = new CreateEmail();
 			String senha = senhaTemporaria();
-			createEmail.email(usuario.getPessoa().getEmail(), "Recuperação de Senha", "Prezado(a)"
-					+ usuario.getPessoa().getNome() + ", sua senha para redefinição é:" + senha);
-			
+			email = usuario.getPessoa().getEmail();
+			assunto = "Recuperação de Senha";
+			mensagem = "Prezado(a)" + usuario.getPessoa().getNome()
+					+ ", você solicitou uma alteração na sua senha. \nSua senha para redefinição é:" + senha
+					+ "\nAtenciosamente, \n							Drogaria MultiFarma - Programação Web Com Java";
+
+			createEmail.email(email, assunto, mensagem);
+
 			usuario.setSenhaTemporaria(senha);
 			Messages.addGlobalInfo("Uma nova senha foi enviada ao seu email");
+			usuarioDAO.merge(usuario);
 		} catch (Exception e) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar recuperar a sua conta");
 			e.printStackTrace();
@@ -44,8 +57,13 @@ public class RecuperarSenhaBean implements Serializable {
 	public String senhaTemporaria() {
 		senhaTemp = null;
 		for (int i = 0; i <= 7; i++) {
-			Random senhaTempAleatoria = new Random();
-			senhaTemp += senhaTempAleatoria;
+			Random random = new Random();
+			digitoSenha = random.nextInt(10);
+			if (senhaTemp == null) {
+				senhaTemp = "" + digitoSenha;
+			} else {
+				senhaTemp += digitoSenha;
+			}
 		}
 		return senhaTemp;
 	}

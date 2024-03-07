@@ -26,12 +26,13 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
 			throw erro;
 		}
 	}
-	
+
 	public Usuario buscarPorCPF(String cpf) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Usuario.class);
-			consulta.add(Restrictions.eq("cpf", cpf));
+			consulta.createAlias("pessoa", "p");
+			consulta.add(Restrictions.eq("p.cpf", cpf));
 			Usuario resultado = (Usuario) consulta.uniqueResult();
 			return resultado;
 		} catch (RuntimeException erro) {
