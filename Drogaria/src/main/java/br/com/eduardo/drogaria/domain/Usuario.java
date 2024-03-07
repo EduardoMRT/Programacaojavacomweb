@@ -30,6 +30,8 @@ public class Usuario extends GenericDomain{
 	@JoinColumn(nullable = false)
 	private Pessoa pessoa;
 
+	@Column(nullable = true)
+	private String senhaTemporaria;
 	
 	@Transient //diz que esse método só serve para formatação
 	public String getTipoFormatado(){
