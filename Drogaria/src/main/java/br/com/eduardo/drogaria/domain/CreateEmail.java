@@ -4,6 +4,7 @@ import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.SimpleEmail;
 
 public class CreateEmail{
+	
 	public void email() {
 		String meuEmail = "desenvolvimentostestes@gmail.com";
 		String minhaSenha = "dgvtcyiyjwiwsykz";
