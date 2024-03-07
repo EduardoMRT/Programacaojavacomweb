@@ -13,6 +13,7 @@ import org.omnifaces.util.Messages;
 
 import br.com.eduardo.drogaria.dao.PessoaDAO;
 import br.com.eduardo.drogaria.dao.UsuarioDAO;
+import br.com.eduardo.drogaria.domain.Email;
 import br.com.eduardo.drogaria.domain.Pessoa;
 import br.com.eduardo.drogaria.domain.Usuario;
 import br.com.eduardo.drogaria.util.HibernateUtil;
@@ -60,7 +61,6 @@ public class EntrarBean implements Serializable{
 
 	public Boolean entrar(ActionEvent evento) {
 
-		
 		usuarios = new ArrayList<Usuario>();
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
