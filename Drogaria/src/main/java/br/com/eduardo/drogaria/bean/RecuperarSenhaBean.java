@@ -41,7 +41,7 @@ public class RecuperarSenhaBean implements Serializable {
 			assunto = "Recuperação de Senha";
 			mensagem = "Prezado(a)" + usuario.getPessoa().getNome()
 					+ ", você solicitou uma alteração na sua senha. \nSua senha para redefinição é:" + senha
-					+ "\nAtenciosamente, \n							Drogaria MultiFarma - Programação Web Com Java";
+					+"\nCaso você não tenha solicitado a alteração, ainda é possível entrar com a sua senha. \nAtenciosamente, \n							Drogaria MultiFarma - Programação Web Com Java";
 
 			createEmail.email(email, assunto, mensagem);
 
