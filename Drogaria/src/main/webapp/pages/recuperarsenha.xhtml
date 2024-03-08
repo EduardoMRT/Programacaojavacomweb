@@ -11,25 +11,76 @@
 <h:body>
 	<p:growl id="mensagem" />
 
-	<p:dialog header="Recuperar Conta" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false" visible="true">
-		<h:form id="formEntrar">
-			<h:panelGrid id="painel" columns="2">
-				<p:outputLabel for="cpf" value="CPF:" />
-				<p:inputMask id='cpf' mask="999.999.999-99" size="10"
-					value='#{recuperarSenhaBean.cpf}' required='true'
-					requiredMessage='O campo "CPF" é obrigatório' />
-			</h:panelGrid>
+	<h:panelGroup layout="block" id="paineis">
+		<p:dialog header="Recuperar Conta" widgetVar="dialogo"
+			draggable="false" resizable="false" modal="true" closable="false"
+			visible="#{recuperarSenhaBean.visivel1}">
+			<h:form id="formRecuperar">
+				<h:panelGrid id="painel" columns="2">
+					<p:outputLabel for="cpf" value="CPF:" />
+					<p:inputMask id='cpf' mask="999.999.999-99" size="10"
+						value='#{recuperarSenhaBean.cpf}' required='true'
+						requiredMessage='O campo "CPF" é obrigatório' />
+				</h:panelGrid>
 
-			<h:panelGrid columns="2">
-				<p:commandButton value="Enviar código de recuperação"
-					actionListener="#{recuperarSenhaBean.recuperar}" update=":mensagem">
-					<f:attribute name="pessoaSelecionada" value="#{pessoa}" />
-				</p:commandButton>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Enviar código de recuperação"
+						actionListener="#{recuperarSenhaBean.recuperar}"
+						update=":mensagem :formRecuperar:painel :paineis">
+						<f:attribute name="pessoaSelecionada" value="#{pessoa}" />
+					</p:commandButton>
 
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
-		</h:form>
-	</p:dialog>
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Digite o código enviado no Email"
+			widgetVar="dialogo" draggable="false" resizable="false" modal="true"
+			closable="false" visible="#{recuperarSenhaBean.visivel2}">
+			<h:form id="formRedefinir">
+				<h:panelGrid id="painel2" columns="2">
+					<p:outputLabel for="codigo" value="Código:" />
+					<p:inputMask id='codigo' mask="99 99 99 99" size="8"
+						value='#{recuperarSenhaBean.codigo}' required='true'
+						requiredMessage='O campo "Código" é obrigatório' />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Confirmar"
+						actionListener="#{recuperarSenhaBean.verificaCodigo}"
+						update=":mensagem :formRedefinir:painel2 :paineis">
+					</p:commandButton>
+
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Digite uma nova senha" widgetVar="dialogo"
+			draggable="false" resizable="false" modal="true" closable="false"
+			visible="#{recuperarSenhaBean.visivel3}">
+			<h:form id="formRedefinir2">
+				<h:panelGrid id="painel3" columns="2">
+					<p:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha" maxlength="8" size="10"
+						value="#{recuperarSenhaBean.novaSenha}" required="true"
+						requiredMessage="O campo 'Senha' é obrigatório"
+						validatorMessage="Informe uma senha de 6 a 8 caracteres">
+						<f:validateLength minimum="6" maximum="8"/>
+					</p:password>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Confirmar"
+						actionListener="#{recuperarSenhaBean.redefinir}"
+						update=":mensagem :formRedefinir2:painel3 :paineis">
+					</p:commandButton>
+
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</h:panelGroup>
 </h:body>
 </html>
