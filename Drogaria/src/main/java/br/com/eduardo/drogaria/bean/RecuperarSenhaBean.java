@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
@@ -89,7 +90,8 @@ public class RecuperarSenhaBean implements Serializable {
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuario = usuarioDAO.buscarPorCPF(cpf);
-		if (usuario.getSenhaTemporaria().equals(codigo)) {
+		System.out.println(codigo);
+		if (usuario.getSenhaTemporaria().contentEquals(codigo)) {
 			Messages.addGlobalInfo("Código confere!");
 			visivel2 = false;
 			visivel3 = true;
@@ -104,7 +106,9 @@ public class RecuperarSenhaBean implements Serializable {
 			if ((novaSenha.length() >= 6) && (novaSenha.length() <= 8)) {
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				Usuario usuario = usuarioDAO.buscarPorCPF(cpf);
+				novaSenha = DigestUtils.sha256Hex(novaSenha);
 				usuario.setSenha(novaSenha);
+				usuario.setSenhaTemporaria(null);
 				usuarioDAO.merge(usuario);
 				Messages.addGlobalInfo("Senha redefinida com sucesso!");
 				visivel1 = true;
