@@ -90,7 +90,6 @@ public class RecuperarSenhaBean implements Serializable {
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuario = usuarioDAO.buscarPorCPF(cpf);
-		System.out.println(codigo);
 		if (usuario.getSenhaTemporaria().contentEquals(codigo)) {
 			Messages.addGlobalInfo("Código confere!");
 			visivel2 = false;
