@@ -159,20 +159,9 @@ public class PessoaBean implements Serializable {
 
 			String logradouro = root.getElementsByTagName("logradouro").item(0).getTextContent();
 			String bairro = root.getElementsByTagName("bairro").item(0).getTextContent();
-			String uf = root.getElementsByTagName("uf").item(0).getTextContent();
-			String localidade = root.getElementsByTagName("localidade").item(0).getTextContent();
 
-			Estado estado = new Estado();
-			EstadoDAO estadoDAO = new EstadoDAO();
-			estado = estadoDAO.buscarPorSigla(uf);
-
-			Cidade cidade = new Cidade();
-			cidade.setNome(localidade);
-			cidade.setEstado(estado);
-			pessoa.setCidade(cidade);
 			pessoa.setRua(logradouro);
 			pessoa.setBairro(bairro);
-
 			pessoaDAO.merge(pessoa);
 
 			pessoas = pessoaDAO.listar("nome");
@@ -197,20 +186,20 @@ public class PessoaBean implements Serializable {
 		}
 	}
 
-//	public void popular() {
-//
-//		try {
-//			if (estado != null) {
-//				CidadeDAO cidadeDAO = new CidadeDAO();
-//				cidades = cidadeDAO.buscarPorEstado(estado.getCodigo());
-//
-//			} else {
-//				cidades = new ArrayList<Cidade>();
-//			}
-//		} catch (RuntimeException erro) {
-//			Messages.addGlobalError("Ocorreu um erro ao tentar filtrar as cidades");
-//			erro.printStackTrace();
-//		}
-//
-//	}
+	public void popular() {
+
+		try {
+			if (estado != null) {
+				CidadeDAO cidadeDAO = new CidadeDAO();
+				cidades = cidadeDAO.buscarPorEstado(estado.getCodigo());
+
+			} else {
+				cidades = new ArrayList<Cidade>();
+			}
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar filtrar as cidades");
+			erro.printStackTrace();
+		}
+
+	}
 }
