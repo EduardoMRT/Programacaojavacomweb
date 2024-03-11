@@ -12,9 +12,8 @@ public class EstadoDAO extends GenericDAO<Estado> {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Estado.class);
-			consulta.createAlias("cidade", "c");
-			consulta.createAlias("pessoa", "p");
-			consulta.add(Restrictions.eq("p.c.cep", uf));
+			consulta.createAlias("cidade.pessoa", "p");
+			consulta.add(Restrictions.eq("p.cep", uf));
 			Estado resultado = (Estado) consulta.uniqueResult();
 			return resultado;
 		} catch (RuntimeException erro) {
