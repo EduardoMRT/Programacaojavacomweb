@@ -1,6 +1,8 @@
 package br.com.eduardo.drogaria.bean;
 
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +10,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.net.ssl.HttpsURLConnection;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.omnifaces.util.Messages;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import br.com.eduardo.drogaria.dao.CidadeDAO;
 import br.com.eduardo.drogaria.dao.EstadoDAO;
@@ -26,7 +33,7 @@ public class PessoaBean implements Serializable {
 	private List<Pessoa> pessoas;
 
 	private Estado estado;
-	
+
 	private Cidade cidade;
 	private List<Estado> estados;
 	private List<Cidade> cidades;
@@ -70,10 +77,11 @@ public class PessoaBean implements Serializable {
 	public void setCidades(List<Cidade> cidades) {
 		this.cidades = cidades;
 	}
-	
+
 	public Cidade getCidade() {
 		return cidade;
 	}
+
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
@@ -98,7 +106,7 @@ public class PessoaBean implements Serializable {
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar();
 
-			cidades = new ArrayList<Cidade>(); //combos dependentes
+			cidades = new ArrayList<Cidade>(); // combos dependentes
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");
 			erro.printStackTrace();
@@ -106,32 +114,56 @@ public class PessoaBean implements Serializable {
 	}
 
 	public void editar(ActionEvent evento) {
-			try {
-				pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
-				
-				PessoaDAO pessoaDAO = new PessoaDAO();
-				pessoas = pessoaDAO.listar();
-				
-				CidadeDAO cidadeDAO = new CidadeDAO();
-				cidades = cidadeDAO.listar();
-				
-				EstadoDAO estadoDAO = new EstadoDAO();				
-				estados = estadoDAO.listar("nome");
-				
-				estado = pessoa.getCidade().getEstado();
-				
-				
-			}catch (RuntimeException erro){
-				Messages.addGlobalError("Ocorreu um erro ao tentar editar uma pessoa");
-				erro.printStackTrace();
-			}
+		try {
+			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
+
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			pessoas = pessoaDAO.listar();
+
+			CidadeDAO cidadeDAO = new CidadeDAO();
+			cidades = cidadeDAO.listar();
+
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estados = estadoDAO.listar("nome");
+
+			estado = pessoa.getCidade().getEstado();
+
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar editar uma pessoa");
+			erro.printStackTrace();
+		}
 	}
 
-	public void salvar() {
+	public void salvar() throws Exception {
 		try {
 			PessoaDAO pessoaDAO = new PessoaDAO();
+
+			// Pega o cep e retira o traço
+			String cep = pessoa.getCep();
+			cep = cep.replace("-", "");
+
+			// Faz a requisição
+			String urlstr = "https://viacep.com.br/ws/" + cep + "/xml/";
+			URL url = new URL(urlstr);
+			HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.connect();
+
+			// Pega os valores
+			InputStream inputStream = connection.getInputStream();
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+
+			Document document = builder.parse(inputStream);
+			Element root = document.getDocumentElement();
+
+			String logradouro = root.getElementsByTagName("logradouro").item(0).getTextContent();
+			String bairro = root.getElementsByTagName("bairro").item(0).getTextContent();
+
+			pessoa.setRua(logradouro);
+			pessoa.setBairro(bairro);
 			pessoaDAO.merge(pessoa);
-			
+
 			pessoas = pessoaDAO.listar("nome");
 			novo();
 		} catch (RuntimeException erro) {
@@ -145,10 +177,10 @@ public class PessoaBean implements Serializable {
 			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoaDAO.excluir(pessoa);
-			Messages.addGlobalInfo("Pessoa: "+pessoa.getNome()+" excluída com sucesso!");
+			Messages.addGlobalInfo("Pessoa: " + pessoa.getNome() + " excluída com sucesso!");
 			novo();
-			
-		}catch(RuntimeException erro) {
+
+		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar excluir a pessoa");
 			erro.printStackTrace();
 		}
@@ -160,7 +192,7 @@ public class PessoaBean implements Serializable {
 			if (estado != null) {
 				CidadeDAO cidadeDAO = new CidadeDAO();
 				cidades = cidadeDAO.buscarPorEstado(estado.getCodigo());
-				
+
 			} else {
 				cidades = new ArrayList<Cidade>();
 			}
