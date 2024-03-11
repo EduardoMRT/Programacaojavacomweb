@@ -14,10 +14,12 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 
 import br.com.eduardo.drogaria.dao.ClienteDAO;
+import br.com.eduardo.drogaria.dao.EmailDAO;
 import br.com.eduardo.drogaria.dao.FuncionarioDAO;
 import br.com.eduardo.drogaria.dao.ProdutoDAO;
 import br.com.eduardo.drogaria.dao.VendaDAO;
 import br.com.eduardo.drogaria.domain.Cliente;
+import br.com.eduardo.drogaria.domain.CreateEmail;
 import br.com.eduardo.drogaria.domain.Funcionario;
 import br.com.eduardo.drogaria.domain.ItemVenda;
 import br.com.eduardo.drogaria.domain.Produto;
@@ -27,21 +29,23 @@ import br.com.eduardo.drogaria.domain.Venda;
 @ManagedBean
 @ViewScoped
 public class VendaBean implements Serializable {
-	private Venda venda;
+	String mensagem2;
 	
+	private Venda venda;
+
 	private List<Produto> produtos;
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
-	
+
 	public Venda getVenda() {
 		return venda;
 	}
-	
+
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
-	
+
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -57,7 +61,7 @@ public class VendaBean implements Serializable {
 	public void setItensVenda(List<ItemVenda> itensVenda) {
 		this.itensVenda = itensVenda;
 	}
-	
+
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
@@ -81,7 +85,7 @@ public class VendaBean implements Serializable {
 			validaBean.verifica();
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
-			
+
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar("descricao");
 
@@ -116,7 +120,7 @@ public class VendaBean implements Serializable {
 			// o mesmo seja convertido novamente em um Short
 			itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
 		}
-		
+
 		calcular();
 	}
 
@@ -129,52 +133,71 @@ public class VendaBean implements Serializable {
 				achou = posicao;
 			}
 		}
-		
-		if(achou > -1) {
+
+		if (achou > -1) {
 			itensVenda.remove(achou);
 		}
-		
+
 		calcular();
 	}
-	
+
 	public void calcular() {
 		venda.setPrecoTotal(new BigDecimal("0.00"));
-		
-		for(int posicao = 0; posicao < itensVenda.size(); posicao++) {
+
+		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
 			ItemVenda itemVenda = itensVenda.get(posicao);
 			venda.setPrecoTotal(venda.getPrecoTotal().add(itemVenda.getPrecoParcial()));
 		}
 	}
-	
+
 	public void finalizar() {
 		try {
 			venda.setHorario(new Date());
-			
+
 			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 			funcionarios = funcionarioDAO.listarOrdenado("pessoa.nome");
-			
+
 			ClienteDAO clienteDAO = new ClienteDAO();
 			clientes = clienteDAO.listarOrdenado("pessoa.nome");
-			
-		}catch(RuntimeException erro) {
+
+		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda");
 			erro.printStackTrace();
 		}
 	}
-	
+
 	public void salvar() {
 		try {
-			if(venda.getPrecoTotal().signum() == 0) {
+			if (venda.getPrecoTotal().signum() == 0) {
 				Messages.addGlobalError("Informe pelo menos um item para venda");
 				return;
 			}
 			VendaDAO vendaDAO = new VendaDAO();
 			vendaDAO.salvar(venda, itensVenda);
+
+			String mensagem;
 			
-				novo();
+			for(ItemVenda itemVenda : itensVenda) {
+				mensagem2 += "\n" + itemVenda.getProduto().getDescricao() + " - R$" + itemVenda.getProduto().getPreco() + " | QTD:" + itemVenda.getQuantidade();
+			}
 			
-			Messages.addGlobalInfo("Venda realizada com sucesso!");
-		}catch(RuntimeException erro) {
+			String mensagem3 =  "\n Atenciosamente, \n           Drogaria Multifarma - Programação Web com Java";
+			String mensagem1 = "Prezado(a) " + venda.getCliente().getPessoa().getNome()
+					+ ",\n foi realizada uma compra em seu nome na Drogaria MultiFarma, no valor de R$"
+					+ venda.getPrecoTotal() + " para o CPF " + venda.getCliente().getPessoa().getCpf() + "\n Vendedor: "
+							+ venda.getFuncionario().getPessoa().getNome() + "\n Produtos: ";
+			
+			mensagem = mensagem1 + "" + mensagem2 + "" + mensagem3;
+			
+			String destinatario = venda.getCliente().getPessoa().getEmail();
+			String assunto = "Comprovante de compra";
+
+			CreateEmail createEmail = new CreateEmail();
+			createEmail.email(destinatario, assunto, mensagem);
+			novo();
+
+			Messages.addGlobalInfo("Venda realizada com sucesso, comprovante enviado no email!");
+		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a venda");
 		}
 	}
