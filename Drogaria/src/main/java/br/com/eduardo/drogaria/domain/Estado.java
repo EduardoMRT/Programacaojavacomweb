@@ -18,6 +18,18 @@ public class Estado extends GenericDomain {
 	@Column(length = 50)
 	private String nome;
 
+	private Cidade cidade;
+	
+	private Pessoa pessoa;
+	
+	public Cidade getCidade() {
+		return cidade;
+	}
+	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+	
 	public String getSigla() {
 		return sigla;
 	}
