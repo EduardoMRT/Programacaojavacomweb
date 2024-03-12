@@ -1,8 +1,5 @@
 package br.com.eduardo.drogaria.verificador;
 
-import org.apache.commons.validator.routines.checkdigit.CheckDigit;
-import org.apache.commons.validator.routines.checkdigit.CheckDigitException;
-
 public class VerificaCPF {
 	String cpfStr;
 	int cpfTeste;
@@ -15,7 +12,7 @@ public class VerificaCPF {
 		cpf = cpf.replace(".", "");
 		cpfLong = Long.parseLong(cpf);
 
-		if (cpf.length() < 14) {
+		if (cpf.length() < 11) {
 			invalido = 1;
 		}
 
@@ -26,32 +23,21 @@ public class VerificaCPF {
 				for (int y = 1; y <= 11; y++) {
 					cpfStr = cpfStr + "" + i;
 				}
-				if (!cpfStr.contentEquals(cpf)) {
+				if (cpfStr.contentEquals(cpf)) {
 					invalido = 1;
 				}
 			}
 			x++;
 		}
 
-		CheckDigit cpfcheckDigit = new CheckDigit() {
+		
+		
+		
 
-			@Override
-			public boolean isValid(String code) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public String calculate(String code) throws CheckDigitException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
-
-		if (cpfcheckDigit.isValid(cpf) == false) {
-			invalido = 1;
-		}
-
+//		if (cpfcheckDigit.isValid(cpf) == false) {
+//			invalido = 1;
+//		}
+		
 		boolean valida = invalido == 1 ? false : true;
 		return valida;
 	}

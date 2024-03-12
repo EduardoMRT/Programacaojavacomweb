@@ -9,7 +9,7 @@ public class VerificaRCPF {
 	public void teste() {
 		
 		VerificaCPF verificaCPF = new VerificaCPF();
-		System.out.println(verificaCPF.verificar("123.456.789-10") == false ? "CPF Inválido" : "CPF Válido");
+		System.out.println(verificaCPF.verificar("000.000.000-01") == false ? "CPF Inválido" : "CPF Válido");
 		
 //		for (int i = 0; i <= 9; i++) {
 //			int x = 0;
